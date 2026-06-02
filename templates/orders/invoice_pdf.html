@@ -1,0 +1,335 @@
+{% load static %}
+{% load custom_filters %}
+{% load jalali_tags %}
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <title>فاکتور | {{ SITE_NAME }}</title>
+
+  <link rel="icon" type="image/png" href="{% static 'img/LOGO.png' %}">
+    <link rel="stylesheet" href="{% static 'vendor/bootstrap-icons/bootstrap-icons.css' %}">
+    <meta name="description" content="دانلود و مشاهده نسخه PDF فاکتور با جزئیات کامل سفارش، اطلاعات پرداخت و ریز اقلام به صورت منظم و آماده چاپ."/>
+  <meta name="robots" content="noindex,nofollow"/>
+
+
+    <style>
+        @font-face {
+            font-family: IYM;
+            font-display: swap;
+            src: url({% static 'font/yekan/Font-Light-fed3c076.woff' %}) format("woff"),
+            url({% static 'font/yekan/Font-Regular-6a266914.ttf' %}) format("truetype")
+        }
+
+        * {
+            font-family: IYM, Tahoma, sans-serif;
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-size: 13px;
+            color: #222;
+            padding: 32px;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #111;
+            padding-bottom: 16px;
+            margin-bottom: 24px;
+        }
+
+        .header img {
+            height: 100px;
+        }
+
+        .header-info {
+            text-align: left;
+            font-size: 12px;
+            color: #555;
+            line-height: 1.8;
+        }
+
+        .header-title {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .print-btn {
+            padding: 6px 14px;
+            background: #333;
+            color: white;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            border: none;
+        }
+
+        .print-btn:hover {
+            background: #000;
+        }
+
+        @media print {
+            .print-btn {
+                display: none;
+            }
+        }
+
+        /* Meta */
+        .meta {
+            display: flex;
+            gap: 32px;
+            margin-bottom: 24px;
+            font-size: 12px;
+        }
+
+        .meta div {
+            line-height: 2;
+        }
+
+        .meta strong {
+            color: #333;
+        }
+
+        /* Table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 24px;
+        }
+
+        th {
+            background: #f0f0f0;
+            padding: 8px 10px;
+            text-align: right;
+            font-size: 12px;
+            border: 1px solid #ddd;
+        }
+
+        td {
+            padding: 8px 10px;
+            border: 1px solid #ddd;
+            font-size: 12px;
+        }
+
+        tr:nth-child(even) td {
+            background: #fafafa;
+        }
+
+        /* Totals */
+        .totals {
+            width: 280px;
+            margin-right: auto;
+            font-size: 13px;
+        }
+
+        .totals tr td {
+            border: none;
+            padding: 5px 8px;
+        }
+
+        .totals .final td {
+            font-weight: bold;
+            font-size: 15px;
+            border-top: 2px solid #111;
+        }
+
+        /* Payments */
+        .section-title {
+            font-size: 14px;
+            font-weight: bold;
+            margin: 24px 0 10px;
+            border-right: 4px solid #333;
+            padding-right: 8px;
+        }
+
+        .payment-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 6px 0;
+            border-bottom: 1px dashed #ddd;
+            font-size: 12px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 4px;
+            font-size: 11px;
+        }
+
+        .badge-paid {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .badge-due {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .badge-warn {
+            background: #f8f6d7;
+            color: #72711c;
+        }
+
+        .footer {
+            margin-top: 40px;
+            text-align: center;
+            font-size: 11px;
+            color: #999;
+            border-top: 1px solid #eee;
+            padding-top: 12px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <div class="header">
+        <div>
+            <div class="header-title">{{ site_name }}</div>
+            <div style="font-size:12px;color:#555;margin-top:4px;">فاکتور سفارش</div>
+        </div>
+        <img src="{% static 'img/LOGO.png' %}" alt="لوگو">
+        <div class="header-info">
+            <div dir="ltr">
+                {{ business_phone }} <i class="bi bi-telephone-fill"></i>
+            </div>
+            <div>
+                <i class="bi bi-envelope-fill"></i> {{ business_email }}
+            </div>
+            <div>
+                <i class="bi bi-geo-alt-fill"></i> {{ business_address }}
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Meta info -->
+    <div class="meta" style="justify-content: space-between; align-items: flex-start; width:100%;">
+        <div style="display: flex;">
+            <div style="margin-left: 10px;">
+                <strong>مشتری:</strong> {{ order.customer.get_full_name|default:order.customer.username }}<br>
+                <strong>شماره سفارش:</strong> #{{ order.id }}<br>
+                <strong>عنوان:</strong> {{ order.title }}
+            </div>
+
+            <div>
+                <strong>تاریخ ثبت:</strong> {{ order.created_at|to_jalali }}<br>
+                {% if order.deadline %}
+                <strong>مهلت تحویل:</strong> {{ order.deadline|to_jalali }}<br>
+                {% endif %}
+                <strong>پارچه با کارگاه:</strong> {% if order.fabric_by_workshop %}بله{% else %}خیر{% endif %}<br>
+                <strong>متریال با کارگاه:</strong> {% if order.materials_by_workshop %}بله{% else %}خیر{% endif %}
+            </div>
+
+        </div>
+
+        <!-- Print button -->
+        <div style="text-align:left;">
+            <button class="print-btn" id="print">پرینت / دانلود</button>
+        </div>
+
+    </div>
+
+
+    <!-- Items table -->
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>شرح کالا</th>
+                <th>توضیحات</th>
+                <th>تعداد</th>
+                <th>واحد</th>
+                <th>قیمت واحد (ریال)</th>
+                <th>جمع (ریال)</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in invoice.items.all %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ item.title }}</td>
+                <td>{{ item.description|default:"—" }}</td>
+                <td>{{ item.quantity|intcomma_latin }}</td>
+                <td>{{ item.unit|default:"—" }}</td>
+                <td>{{ item.unit_price_amount|floatformat:0|intcomma_latin }}</td>
+                <td>{{ item.total_price|floatformat:0|intcomma_latin }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Totals -->
+    <table class="totals">
+        <tr>
+            <td>جمع اقلام:</td>
+            <td>{{ subtotal|floatformat:0|intcomma_latin }} ریال</td>
+        </tr>
+        <tr>
+            <td>مالیات ({{ tax_rate }}٪):</td>
+            <td>{{ tax_amount|floatformat:0|intcomma_latin }} ریال</td>
+        </tr>
+        <tr class="final">
+            <td>مبلغ نهایی:</td>
+            <td>{{ final_amount|floatformat:0|intcomma_latin }} ریال</td>
+        </tr>
+        <tr>
+            <td>پرداخت‌شده:</td>
+            <td>{{ paid_amount|floatformat:0|intcomma_latin }} ریال</td>
+        </tr>
+        <tr>
+            <td>مانده:</td>
+            <td>{{ remaining|floatformat:0|intcomma_latin }} ریال</td>
+        </tr>
+    </table>
+
+    <!-- Payments -->
+    <div class="section-title">وضعیت پرداخت‌ها</div>
+    {% for p in invoice.payments.all %}
+    <div class="payment-row {% if p.status == 'PAID' %}payment-paid{% else %}payment-unpaid{% endif %}">
+
+        <span>
+            {{ p.date|to_jalali }} — {{ p.description|default:"پرداخت" }}
+
+            {% if p.status == "PAID" %}
+            <span class="badge payment-badge-paid badge-paid">✓ پرداخت شده</span>
+            {% elif p.status == "PAYABLE" %}
+            <span class="badge payment-badge-pending badge badge-warn">قابل پرداخت</span>
+            {% else %}
+            <span class="badge payment-badge-inactive badge badge-due">غیرفعال</span>
+            {% endif %}
+        </span>
+
+        <span>{{ p.amount_amount|floatformat:0|intcomma_latin }} ریال</span>
+
+    </div>
+    {% empty %}
+    <div style="font-size:12px;color:#999;">پرداختی ثبت نشده است.</div>
+    {% endfor %}
+
+    <div style="margin-top:16px;font-size:13px;">
+        <strong>مجموع پرداخت‌شده:</strong> {{ paid_amount|floatformat:0|intcomma_latin }} ریال &nbsp;|&nbsp;
+        {% if remaining > 0 %}
+        <span class="badge badge-due">مانده: {{ remaining|floatformat:0|intcomma_latin }} ریال</span>
+        {% else %}
+        <span class="badge badge-paid">تسویه شده</span>
+        {% endif %}
+    </div>
+
+    <div class="footer">{{ site_name }} — این فاکتور به‌صورت سیستمی صادر شده است.</div>
+
+    <script src="{% static '/js/invoice.js' %}"></script>
+
+</body>
+
+</html>

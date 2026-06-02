@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load static %}
+{# ---------------- SEO ---------------- #}
+{% block meta_title %}
+  {% if page.meta_title %}{{ page.meta_title }} | {{ SITE_NAME }}{% else %}{{ page.title }} | {{ SITE_NAME }}{% endif %}
+{% endblock %}
+
+{% block meta_description %}
+  {% if page.meta_description %}{{ page.meta_description }}{% else %}{{ SITE_DEFAULT_DESCRIPTION }}{% endif %}
+{% endblock %}
+
+{% block canonical %}
+  {{ SITE_URL }}{{ page.get_canonical_path }}
+{% endblock %}
+
+{% block content %}
+<section class="faq-container">
+    <h1 class="faq-title">{{ page.hero_title|default:page.title }}</h1>
+
+    {% for item in page.highlights_json %}
+        <div class="faq-item">
+            <button class="faq-question">{{ item.question }}</button>
+            <div class="faq-answer">
+                <p>{{ item.answer }}</p>
+            </div>
+        </div>
+    {% endfor %}
+</section>
+
+<!-- آیکن پشتیبانی -->
+<a href="tel:{{ BUSINESS.telephone|escapejs }}9" class="btn support-call" aria-label="تماس با پشتیبانی" id="supportCall">
+    <i class="bi bi-telephone-fill"></i>
+</a>
+
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'js/FAQ.js' %}"></script>
+{% endblock %}

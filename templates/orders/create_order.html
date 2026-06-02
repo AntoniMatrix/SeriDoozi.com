@@ -1,0 +1,150 @@
+{% extends "base.html" %}
+{%load static%}
+
+{% block meta_robots %}noindex,nofollow{% endblock %}
+{% block meta_title %}ثبت سفارش | {{ SITE_NAME }}{% endblock %}
+{% block meta_description %}
+ایجاد سفارش جدید با وارد کردن اطلاعات مشتری، انتخاب محصولات، ثبت جزئیات پرداخت و نهایی‌سازی سفارش به روشی ساده و سریع.
+{% endblock %}
+
+
+{% block content %}
+<h2>ثبت سفارش جدید</h2>
+
+<form id="orderForm" enctype="multipart/form-data" method="post">
+    {% csrf_token %}
+
+    <div class="box">
+        <div class="mb-4">
+            <label class="form-label">عنوان سفارش</label>
+            <input type="text"
+                name="order_title"
+                class="form-control form-control-lg"
+                placeholder="مثلاً تولید مانتو ۲۰۰ عدد"
+                required>
+        </div>
+
+        <label><input type="checkbox" class="checkbox" id="fabric" name="fabric" value="1"> تامین پارچه توسط کارگاه</label>
+        <br>
+        <label><input type="checkbox" class="checkbox" id="material" name="material" value="1"> تامین خرج کار توسط کارگاه</label>
+
+        <hr>
+
+    <div id="items-container">
+
+        <!-- ✅ آیتم 1 -->
+        <div class="order-item card p-3 mb-4" data-index="1">
+
+            <strong class="mb-3 d-block">آیتم 1</strong>
+            <br>
+            <!-- نوع محصول -->
+            <label>نوع محصول</label>
+            <input type="text"
+                class="form-control mb-3"
+                name="items[1][title]"
+                placeholder="مانتو / شلوار / کت و..."
+                required>
+
+            <!-- نوع سایزبندی -->
+            <label>نوع‌سفارش</label>
+            <p>(در صورت انتخاب نوع سفارش عادی تمام سایز های شما به تعداد مساوی تولید میشود تعدادی که وارد میکنید تعداد کل است)</p>
+            <select class="form-select order-type mb-3"
+                    name="items[1][size_mode]"
+                    required>
+                <option value="">انتخاب کنید</option>
+                <option value="NORMAL">عادی</option>
+                <option value="VIP">VIP (سفارشی)</option>
+            </select>
+
+            <!-- ✅ سایزبندی عادی -->
+            <div class="normal-section  mb-3" style="display:none">
+                <!-- تعداد -->
+                <label>تعدادکل</label>
+                <input
+                type="number"
+                name="items[1][quantity]"
+                min="1"
+                class="quantity-input"
+                >
+
+                <label>سایزبندی</label>
+                <div class="d-flex align-items-center gap-2">
+                    <input type="text"
+                        class="form-control"
+                        name="items[1][size_from]"
+                        placeholder="حداقل سایز (مثلاً S یا 38)">
+                    <span>الی</span>
+                    <input type="text"
+                        class="form-control"
+                        name="items[1][size_to]"
+                        placeholder="حداکثر سایز (مثلاً XL یا 46)">
+                </div>
+            </div>
+
+            <!-- ✅ سایزبندی VIP -->
+            <div class="vip-section mb-3" style="display:none">
+                <label>سایزبندی</label>
+                <br>
+                <button type="button"
+                        class="btn btn-outline-primary btn-sm mb-2 add-size-btn">
+                    <i class="bi bi-plus"></i>
+                    افزودن سایز
+                </button>
+
+                <div class="vip-sizes"></div>
+            </div>
+
+            <!-- نوع پارچه -->
+            <label>نوع پارچه</label>
+            <input type="text"
+                class="form-control mb-3"
+                name="items[1][fabric_type]"
+                placeholder="مثلاً کرپ، لینن، فاستونی">
+
+            <!-- توضیحات -->
+            <label>توضیحات</label>
+            <textarea class="form-control mb-3"
+                    name="items[1][description]"
+                    rows="3"
+                    placeholder="توضیحات تکمیلی آیتم"></textarea>
+
+            <!-- آپلود عکس -->
+            <label>عکس نمونه کار (اختیاری)</label>
+            <input type="file"
+                class="form-control"
+                name="items[1][sample_image]"
+                accept="image/*">
+
+        </div>
+
+    </div>
+        <div style="display: flex; justify-content: space-between;">
+            
+            <button type="submit" class="btn btn-success mb-3" style="margin-top: 10px;" id="submitOrderBtn">
+                <i class="bi bi-box-seam" style="font-size: 20px;
+                    line-height: 0.7;
+                    padding: 2px 0 0 0;;"></i>
+                ثبت سفارش</button>
+
+            
+            <button type="button"
+                    id="add-item-btn"
+                    class="btn secondary mb-3" style="margin-top: 10px; margin-right: auto;">
+                <i class="bi bi-plus-circle" style="font-size: 20px;
+                    line-height: 0.7;
+                    padding: 2px 0 0 0;;"></i>
+                افزودن آیتم
+            </button>
+            
+        </div>
+    </div>
+
+</form>
+
+
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'js/order.js' %}"></script>
+{% endblock %}
+

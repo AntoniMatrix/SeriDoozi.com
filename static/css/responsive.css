@@ -1,0 +1,1200 @@
+:root{
+  --bg: #0b0f14;
+  --panel: #101826;
+  --panel-2: #0f141d;
+  --card: #121c2b;
+  --stroke: rgba(255,255,255,.08);
+  --text: rgba(255,255,255,.92);
+  --muted: rgba(255,255,255,.72);
+  --muted2: rgba(255,255,255,.55);
+
+  --accent: #f39c3d; /* industrial orange */
+  --accent-2: #ffb35c;
+  --ok: #2ecc71;
+  --warn: #f1c40f;
+  --bad: #ff6b6b;
+
+  --radius: 16px;
+  --radius-sm: 12px;
+
+  --shadow: 0 18px 48px rgba(0,0,0,.45);
+  --shadow-soft: 0 10px 28px rgba(0,0,0,.35);
+
+  --maxw: 1180px;
+}
+
+.mobile{
+    display: block !important;
+}
+
+.PC-flex{
+    display: none !important;
+}
+
+.PC{
+    display: none !important;
+}
+
+.dark{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 999;
+    background-color: #0000006b;
+    position: fixed;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.dark.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.mobile-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.mobile-menu i{
+    font-size: 30px;
+    font-weight: bold; 
+    cursor: pointer;
+    user-select: none;
+}
+
+.mobile-slide_menu {
+  position: fixed;
+  top: 0;
+  width: 300px;
+  height: 100%;
+  background: radial-gradient(1200px 600px at 20% -10%, rgba(243, 156, 61, .18), transparent 60%), 
+              radial-gradient(900px 500px at 80% 0%, rgba(66, 135, 245, .14), transparent 55%), 
+              var(--bg);
+  z-index: 1000;
+  right: -300px;
+  transition: right 0.3s ease;
+  overflow-y: auto;
+}
+
+.mobile-slide_menu.active {
+  right: 0;
+}
+
+.mobile-slide_account {
+  left: -300px;
+  transition: left 0.3s ease;
+  position: fixed;
+  top: 0;
+  width: 300px;
+  height: 100%;
+  background: radial-gradient(1200px 600px at 20% -10%, rgba(243, 156, 61, .18), transparent 60%), 
+              radial-gradient(900px 500px at 80% 0%, rgba(66, 135, 245, .14), transparent 55%), 
+              var(--bg);
+  z-index: 1000;
+  overflow-y: auto;
+  padding-left: 10px;
+}
+
+.mobile-slide_account.active {
+  left: 0;
+}
+
+.mobile-nav{
+    padding-right: 10px;
+}
+
+.mobile-nav i{
+    margin-left: 10px;
+}
+
+.mobile-nav a{
+    display: block;
+    width: 100%;
+}
+
+/* ========== Hero Section ========== */
+@media (max-width: 980px) {
+  .hero-content {
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .hero-content .info {
+    max-width: 100%;
+  }
+
+  .hero-content .quick {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    width: 100%;
+  }
+}
+
+@media (max-width: 680px) {
+  .hero-content .quick {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-content .info h1 {
+    font-size: 1.75rem;
+  }
+
+  .hero-content .actions {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .hero-content .actions .btn {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+/* ========== Section Title ========== */
+@media (max-width: 680px) {
+  .section-title h2 {
+    font-size: 1.5rem;
+  }
+}
+
+/* ========== Feature Cards ========== */
+@media (max-width: 680px) {
+  .feature {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .feature .ico {
+    margin: 0 auto 12px;
+  }
+}
+
+/* ========== Orders Marquee ========== */
+@media (max-width: 980px) {
+  .marquee-slide {
+    min-width: 280px;
+  }
+}
+
+@media (max-width: 680px) {
+  .marquee-slide {
+    min-width: 260px;
+  }
+
+  .marquee-slide h3 {
+    font-size: 1rem;
+  }
+}
+
+/* ========== Bottom CTA Panel ========== */
+@media (max-width: 980px) {
+  .panel .row.wrap {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .panel .row.wrap > div:last-child {
+    width: 100%;
+  }
+
+  .panel .row.wrap .btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 680px) {
+  .panel h2 {
+    font-size: 1.25rem;
+  }
+}
+
+/* ========== Quick Boxes ========== */
+@media (max-width: 480px) {
+  .quick .q {
+    padding: 12px;
+  }
+
+  .quick .badge {
+    font-size: 0.875rem;
+  }
+}
+
+/* ========== Row Wrap Adjustments ========== */
+@media (max-width: 680px) {
+  .row.wrap {
+    gap: 12px;
+  }
+}
+
+/* Tutorial Page Responsive Styles */
+
+@media (max-width: 980px) {
+    .announcement-bar h3 {
+        font-size: 16px;
+        line-height: 1.6;
+    }
+
+    .announcement-bar .container {
+        flex-direction: column;
+        gap: 16px;
+        text-align: center;
+    }
+
+    .announcement-bar .btn {
+        width: 100%;
+        max-width: 300px;
+    }
+
+    .tutorial-search form {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .tutorial-search input {
+        width: 100%;
+    }
+
+    .tutorial-search .btn {
+        width: 100%;
+    }
+
+    .tutorial-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+    }
+
+    .pagination {
+        flex-wrap: wrap;
+        gap: 8px;
+        justify-content: center;
+    }
+
+    .pagination li {
+        margin: 0;
+    }
+}
+
+@media (max-width: 680px) {
+    .announcement-bar {
+        padding: 16px 0;
+    }
+
+    .announcement-bar h3 {
+        font-size: 14px;
+    }
+
+    .tutorial-search {
+        padding: 20px 0;
+    }
+
+    .tutorial-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .tutorial-card h3 {
+        font-size: 16px;
+    }
+
+    .card-body {
+        padding: 12px;
+    }
+
+    .pagination li a,
+    .pagination li span {
+        padding: 6px 10px;
+        font-size: 14px;
+    }
+
+    .empty-message {
+        font-size: 14px;
+        padding: 24px 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .announcement-bar h3 {
+        font-size: 13px;
+    }
+
+    .announcement-bar .btn {
+        font-size: 14px;
+        padding: 10px 20px;
+    }
+
+    .tutorial-search input {
+        font-size: 14px;
+        padding: 10px 12px;
+    }
+
+    .tutorial-card h3 {
+        font-size: 14px;
+    }
+
+    .pagination li a,
+    .pagination li span {
+        padding: 5px 8px;
+        font-size: 13px;
+    }
+}
+
+/* Tutorial Detail Page Responsive Styles */
+
+@media (max-width: 980px) {
+    .tutorial-detail {
+        padding: 30px 0;
+    }
+
+    .tutorial-title {
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+
+    .tutorial-video {
+        margin-bottom: 24px;
+    }
+
+    .tutorial-description {
+        font-size: 15px;
+        line-height: 1.7;
+    }
+}
+
+@media (max-width: 680px) {
+    .tutorial-detail {
+        padding: 20px 0;
+    }
+
+    .tutorial-title {
+        font-size: 20px;
+        margin-bottom: 16px;
+        line-height: 1.4;
+    }
+
+    .tutorial-video {
+        margin-bottom: 20px;
+    }
+
+    .video-wrapper {
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    .tutorial-description {
+        font-size: 14px;
+        line-height: 1.8;
+        padding: 0 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .tutorial-detail {
+        padding: 16px 0;
+    }
+
+    .tutorial-title {
+        font-size: 18px;
+        margin-bottom: 12px;
+    }
+
+    .tutorial-video {
+        margin-bottom: 16px;
+    }
+
+    .tutorial-description {
+        font-size: 13px;
+        padding: 0 4px;
+    }
+}
+
+
+/* Article Detail Page Responsive Styles */
+
+@media (max-width: 980px) {
+    .article-detail {
+        padding: 30px 0;
+    }
+
+    .article-header {
+        margin-bottom: 30px;
+    }
+
+    .article-title {
+        font-size: 26px;
+        line-height: 1.5;
+        margin-bottom: 16px;
+    }
+
+    .article-meta {
+        font-size: 14px;
+        margin-bottom: 20px;
+    }
+
+    .article-thumbnail {
+        margin: 24px 0;
+        border-radius: 12px;
+        overflow: hidden;
+    }
+
+    .article-thumbnail img {
+        width: 100%;
+        height: auto;
+    }
+
+    .article-content {
+        font-size: 16px;
+        line-height: 1.8;
+    }
+
+    .article-content iframe {
+        height: 350px;
+        width: 100%;
+    }
+
+    .article-footer {
+        margin-top: 40px;
+        padding-top: 24px;
+        border-top: 1px solid #e0e0e0;
+    }
+}
+
+@media (max-width: 680px) {
+    .article-detail {
+        padding: 20px 0;
+    }
+
+    .article-header {
+        margin-bottom: 24px;
+    }
+
+    .article-title {
+        font-size: 22px;
+        line-height: 1.4;
+        margin-bottom: 12px;
+    }
+
+    .article-meta {
+        font-size: 13px;
+        margin-bottom: 16px;
+    }
+
+    .article-thumbnail {
+        margin: 20px 0;
+        border-radius: 10px;
+    }
+
+    .article-content {
+        font-size: 15px;
+        line-height: 1.9;
+        padding: 0 8px;
+    }
+
+    .article-content iframe {
+        height: 280px;
+        width: 100%;
+        border-radius: 8px;
+    }
+
+    .article-content h2 {
+        font-size: 20px;
+        margin-top: 28px;
+        margin-bottom: 14px;
+    }
+
+    .article-content h3 {
+        font-size: 18px;
+        margin-top: 24px;
+        margin-bottom: 12px;
+    }
+
+    .article-content p {
+        margin-bottom: 16px;
+    }
+
+    .article-content img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 8px;
+    }
+
+    .article-footer {
+        margin-top: 32px;
+        padding-top: 20px;
+        text-align: center;
+    }
+
+    .article-footer .btn {
+        width: 100%;
+        padding: 14px 24px;
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .article-detail {
+        padding: 16px 0;
+    }
+
+    .article-title {
+        font-size: 19px;
+        line-height: 1.5;
+    }
+
+    .article-meta {
+        font-size: 12px;
+    }
+
+    .article-thumbnail {
+        margin: 16px 0;
+        border-radius: 8px;
+    }
+
+    .article-content {
+        font-size: 14px;
+        line-height: 2;
+        padding: 0 4px;
+    }
+
+    .article-content iframe {
+        height: 220px;
+        border-radius: 6px;
+    }
+
+    .article-content h2 {
+        font-size: 18px;
+        margin-top: 24px;
+        margin-bottom: 12px;
+    }
+
+    .article-content h3 {
+        font-size: 16px;
+        margin-top: 20px;
+        margin-bottom: 10px;
+    }
+
+    .article-footer {
+        margin-top: 28px;
+        padding-top: 16px;
+    }
+
+    .article-footer .btn {
+        padding: 12px 20px;
+        font-size: 14px;
+    }
+}
+
+
+/* ========== Orders Page Responsive ========== */
+
+@media (max-width: 980px) {
+    .orders-title {
+        font-size: 22px;
+    }
+
+    .orders-table th,
+    .orders-table td {
+        font-size: 14px;
+        padding: 10px 8px;
+    }
+
+    .order-detail-btn {
+        font-size: 13px;
+        padding: 4px 10px;
+    }
+}
+
+@media (max-width: 680px) {
+    .orders-title {
+        font-size: 20px;
+    }
+
+    /* مخفی کردن thead */
+    .orders-table thead {
+        display: none;
+    }
+
+    /* تبدیل جدول به بلاک */
+    .orders-table,
+    .orders-table tbody,
+    .orders-table tr {
+        display: block;
+        width: 100%;
+    }
+
+    /* هر ردیف یک کارت */
+    .orders-table tr {
+        margin-bottom: 15px;
+        border: 1px solid var(--accent);
+        border-radius: 8px;
+        padding: 12px;
+        background: var(--card);
+    }
+
+    /* هر سلول یک ردیف با label */
+    .orders-table td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 8px 0;
+        border: none;
+        border-bottom: 1px solid #f0f0f0;
+        direction: rtl;
+        text-align: left;
+    }
+
+    .orders-table td:last-child {
+        border-bottom: none;
+    }
+
+    /* نمایش label از data-label */
+    .orders-table td::before {
+        content: attr(data-label);
+        font-weight: 600;
+        color: var(--text);
+        margin-left: auto;
+        flex-shrink: 0;
+    }
+
+    .orders-table td:last-of-type::before{
+        display: none;
+    }
+
+    /* مقدار سمت چپ */
+    .orders-table td > * {
+        text-align: left;
+    }
+
+    .order-detail-btn {
+        width: 100%;
+        text-align: center;
+        margin-top: 5px;
+    }
+
+    .order-status-badge {
+        font-size: 12px;
+        padding: 4px 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .orders-title {
+        font-size: 18px;
+    }
+
+    .orders-table td {
+        font-size: 13px;
+        padding: 6px 0;
+    }
+
+    .orders-table td::before {
+        font-size: 13px;
+    }
+}
+
+/* ========== Order Form Page Responsive ========== */
+
+@media (max-width: 980px) {
+    /* Grid sections */
+    .grid2,
+    .grid3 {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    /* Form fields */
+    .field {
+        margin-bottom: 15px;
+    }
+
+    input,
+    textarea,
+    select {
+        font-size: 14px;
+    }
+
+    /* Buttons */
+    .btn {
+        padding: 10px 16px;
+        font-size: 14px;
+    }
+
+    /* Order items */
+    .order-item {
+        padding: 15px;
+    }
+
+    .box{
+        width: unset;
+    }
+}
+
+@media (max-width: 680px) {
+
+    /* Typography */
+    h2 {
+        font-size: 20px;
+        margin-bottom: 20px;
+    }
+
+    /* Grid collapse */
+    .grid2,
+    .grid3,
+    .grid4 {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    /* Form fields */
+    .field {
+        gap: 8px;
+        margin-bottom: 12px;
+    }
+
+    input,
+    textarea,
+    select {
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    
+
+    .row .btn {
+        width: 100%;
+    }
+
+    /* Order items */
+    .order-item {
+        padding: 12px;
+        margin-bottom: 15px;
+    }
+
+    /* Size inputs wrapper */
+    .order-item .row.wrap {
+        gap: 8px;
+    }
+
+    .order-item .row.wrap input {
+        min-width: 80px;
+    }
+
+    .box{
+        width: unset;
+    }
+}
+
+@media (max-width: 480px) {
+    h2 {
+        font-size: 18px;
+    }
+
+    input,
+    textarea,
+    select {
+        padding: 8px;
+        font-size: 13px;
+    }
+
+    .btn {
+        padding: 9px 14px;
+        font-size: 13px;
+    }
+
+    .order-item {
+        padding: 10px;
+    }
+
+    /* Size inputs - full width on very small screens */
+    .order-item .row.wrap input {
+        width: 100%;
+        min-width: unset;
+    }
+
+    .box{
+        width: unset;
+    }
+}
+
+
+/* ========== Invoices Page Responsive ========== */
+
+@media (max-width: 680px) {
+    /* Invoice list container */
+    div[style*="max-width:600px"] {
+        max-width: 100% !important;
+        margin: 20px auto !important;
+        padding: 0 15px;
+    }
+
+    /* Title */
+    h2 {
+        font-size: 20px;
+        margin-bottom: 15px;
+    }
+
+    /* Invoice list */
+    ul {
+        margin-top: 15px !important;
+    }
+
+    /* Invoice item */
+    li[style*="display: flex"] {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 12px;
+        padding: 12px !important;
+    }
+
+    /* Invoice info text */
+    li[style*="display: flex"] > div:first-child {
+        width: 100%;
+        line-height: 1.8;
+    }
+
+    /* Invoice link */
+    li[style*="display: flex"] a {
+        margin-right: 0 !important;
+        display: inline-block;
+        padding: 8px 16px;
+        background: var(--accent);
+        color: #000;
+        text-decoration: none;
+        border-radius: 6px;
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+    /* Empty state */
+    .empty-orders {
+        padding: 40px 20px;
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    div[style*="max-width:600px"] {
+        margin: 15px auto !important;
+    }
+
+    h2 {
+        font-size: 18px;
+    }
+
+    li[style*="display: flex"] {
+        padding: 10px !important;
+        font-size: 14px;
+    }
+
+    li[style*="display: flex"] a {
+        width: 100%;
+        text-align: center;
+        padding: 10px;
+    }
+}
+
+/* ========== Order Detail Page Responsive ========== */
+
+@media (max-width: 680px) {
+
+    .order-detail-container {
+        padding: 0 10px;
+    }
+
+    /* Header card */
+    .order-detail-container > .card:first-child > div {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 10px;
+    }
+
+    .order-detail-container > .card:first-child h1 {
+        font-size: 18px !important;
+    }
+
+    .order-detail-container > .card:first-child .small {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 5px;
+    }
+
+    /* Info cards row */
+    .info-row {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 10px !important;
+    }
+
+    .info-card {
+        padding: 12px !important;
+        font-size: 13px;
+    }
+
+    .card-label {
+        font-size: 12px;
+        margin-bottom: 8px;
+    }
+
+    .card-label svg {
+        width: 14px !important;
+        height: 14px !important;
+    }
+
+    .card-value {
+        font-size: 14px;
+    }
+
+    /* Payable CTA */
+    .payable-cta {
+        flex-direction: column !important;
+        gap: 15px;
+        padding: 15px !important;
+    }
+
+    .payable-cta > div {
+        width: 100% !important;
+    }
+
+    .payable-cta .cta-text {
+        font-size: 14px;
+    }
+
+    .payable-cta .cta-amount {
+        font-size: 16px;
+    }
+
+    .payable-cta a,
+    .payable-cta button {
+        width: 100%;
+        margin: 5px 0 !important;
+        justify-content: center;
+    }
+
+    /* Section title */
+    .section-title {
+        font-size: 16px;
+        margin: 20px 0 10px;
+    }
+
+    /* Items list */
+    .items-list > .card {
+        margin-bottom: 15px !important;
+    }
+
+    .item-row {
+        flex-direction: column !important;
+        gap: 15px;
+    }
+
+    .item-card.item-img {
+        width: 100% !important;
+    }
+
+    .item-col {
+        width: 100% !important;
+    }
+
+    .item-title {
+        font-size: 16px;
+        padding: 10px !important;
+        margin-bottom: 10px !important;
+    }
+
+    .item-card.item-desc {
+        padding: 10px;
+    }
+
+    .item-card.item-desc > .card {
+        max-height: 150px;
+    }
+
+    /* Size section */
+    .item-col_half {
+        width: 100% !important;
+        margin: 10px 0 !important;
+    }
+
+    .item-col_half > div:first-child {
+        font-size: 16px !important;
+        height: auto !important;
+        padding: 10px 5px;
+    }
+
+    .item-col_half_row {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 10px;
+        font-size: 14px !important;
+    }
+
+    .item-col_half_row > div {
+        width: 100% !important;
+        margin: 0 !important;
+    }
+
+    /* VIP table */
+    .vip-table {
+        font-size: 13px;
+    }
+
+    /* Range display */
+    .range-display {
+        flex-direction: row;
+        gap: 10px;
+        font-size: 16px;
+    }
+
+    /* Grid2 (messages & payments) */
+    .grid2 {
+        grid-template-columns: 1fr !important;
+        gap: 15px !important;
+    }
+
+    /* Chat box */
+    .chat-box {
+        max-height: 250px;
+        padding: 10px;
+    }
+
+    .chat-bubble {
+        max-width: 85%;
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    .chat-meta {
+        font-size: 11px;
+    }
+
+    /* Message form */
+    #msgForm textarea {
+        padding: 12px 90px 12px 12px !important;
+        font-size: 14px;
+    }
+
+    #msgForm button {
+        top: 8px !important;
+        right: 8px !important;
+        padding: 8px 12px;
+        font-size: 13px;
+    }
+
+    /* Payments section */
+    #payments > div {
+        padding: 8px !important;
+        font-size: 13px;
+    }
+
+    #payments > div > div:first-child {
+        flex-direction: column;
+        align-items: flex-start !important;
+        gap: 8px;
+    }
+
+    #payments > div > div:first-child > div:first-child {
+        width: 100% !important;
+        margin: 0 0 8px 0 !important;
+    }
+
+    #payments > div > div:first-child > div:last-child {
+        width: 100% !important;
+        justify-content: space-between;
+    }
+
+    #payments .small {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 5px;
+        margin-top: 8px;
+    }
+
+    /* Payment buttons */
+    
+
+    .card > div:last-child > div:first-child h3 {
+        margin: 0 !important;
+        line-height: 1.5 !important;
+        height: auto !important;
+    }
+
+    .card > div:last-child > div:first-child > div {
+        width: 100%;
+        gap: 8px;
+    }
+
+    .size-num{
+        width: 100px;
+        height: 100px;
+        line-height: 60px;
+        font-size: 40px;
+    }
+
+    .card > div:last-child > div:first-child a {
+        width: 100%;
+        justify-content: center;
+        margin: 0 !important;
+    }
+
+    .card > div:last-child > a,
+    .card > div:last-child  {
+        height: unset !important;
+    }
+
+    /* Bottom action buttons */
+    .card > div:last-child > a,
+    .card > div:last-child > button {
+        height: unset !important;
+        padding: 12px;
+        font-size: 14px;
+        margin-top: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .order-detail-container > .card:first-child h1 {
+        font-size: 16px !important;
+    }
+
+    .info-row {
+        grid-template-columns: 1fr !important;
+    }
+
+    .info-card {
+        padding: 10px !important;
+    }
+
+    .item-title {
+        font-size: 14px;
+    }
+
+    .item-col_half_row {
+        font-size: 13px !important;
+    }
+
+    .chat-box {
+        max-height: 200px;
+    }
+
+    #msgForm textarea {
+        padding-right: 12px !important;
+        padding-bottom: 50px !important;
+    }
+
+    #msgForm button {
+        top: auto !important;
+        bottom: 15px !important;
+        right: 8px !important;
+        left: 8px !important;
+        width: calc(100% - 16px);
+    }
+
+    #payments {
+        font-size: 12px;
+    }
+}

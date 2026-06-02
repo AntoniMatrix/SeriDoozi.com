@@ -1,0 +1,419 @@
+{% extends "base.html" %}
+{% load static %}
+{% load tz %}
+{% load jalali_tags %}
+{% load custom_filters %}
+
+{% block meta_robots %}noindex,nofollow{% endblock %}
+{% block meta_title %}{{ order.title }} | {{ SITE_NAME }}{% endblock %}
+{% block meta_description %}
+مشاهده جزئیات کامل سفارش شامل محصولات خریداری‌شده، وضعیت سفارش، اطلاعات پرداخت و آدرس ارسال در این صفحه.
+{% endblock %}
+
+{% block content %}
+
+{% if request.user.is_staff %}
+{% include "adminpanel/admin_base.html" %}
+{% endif %}
+<div class="order-detail-container">
+  <!-- هدر سفارش -->
+  <div class="card" style="margin-bottom: 10px;">
+    <div style=" display: flex; justify-content: space-between; align-items: center;">
+      <h1 style="margin: 0;">سفارش <span class="en-font">{{ order.id }}# - {{ order.title }}</span></h1>    
+      <p style="margin: 0;">وضعیت: <span class="badge">{{ order.get_status_display }}</span></p>
+    </div>
+    <div style="display: flex; justify-content: space-between; align-items: center;" class="small">
+      <p class="en-font" style="margin: 0;">تاریخ ثبت سفارش: {{ order.created_at|to_jalali }}</p>
+      <p class="en-font" style="margin: 0;">تاریخ بروزرسانی سفارش: {{ order.updated_at|to_jalali }}</p>
+    </div>
+  </div>
+
+  <!-- Info Cards -->
+  <div class="info-row">
+    <div class="info-card">
+      <div class="card-label">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round">
+          <path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z" />
+          <line x1="7" y1="7" x2="7.01" y2="7" />
+        </svg>
+        پارچه توسط کارگاه
+      </div>
+      {% if order.fabric_by_workshop %}
+      <div class="card-value yes">✓ بله</div>
+      {% else %}
+      <div class="card-value no">خیر</div>
+      {% endif %}
+    </div>
+
+    <div class="info-card">
+      <div class="card-label">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round">
+          <circle cx="12" cy="12" r="10" />
+          <path d="M8 12h8M12 8v8" />
+        </svg>
+        متریال توسط کارگاه
+      </div>
+      {% if order.materials_by_workshop %}
+      <div class="card-value yes">✓ بله</div>
+      {% else %}
+      <div class="card-value no">خیر</div>
+      {% endif %}
+    </div>
+
+    {% if order.deadline %}
+    <div class="info-card">
+      <div class="card-label">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round">
+          <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+          <line x1="16" y1="2" x2="16" y2="6" />
+          <line x1="8" y1="2" x2="8" y2="6" />
+          <line x1="3" y1="10" x2="21" y2="10" />
+        </svg>
+        تاریخ تحویل
+      </div>
+      <div class="card-value en-font">{{ order.deadline|to_jalali }}</div>
+    </div>
+    {% endif %}
+
+    {% if final_amount %}
+      <div class="info-card">
+        <div class="card-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width: 18px; height: 18px;">
+            <rect x="2" y="6" width="20" height="12" rx="2"/>
+            <circle cx="12" cy="12" r="2"/>
+            <path d="M6 12h.01M18 12h.01"/>
+          </svg>
+          مبلغ کل سفارش
+        </div>
+        <div class="card-value en-font">{{ final_amount|rial_to_toman|intcomma_latin }} تومان</div>
+      </div>
+   {% endif %}
+
+    <div class="info-card">
+      <div class="card-label">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width: 16px; height: 16px;">
+          <path d="M2 3 L8 0 Q12 4 16 0 L22 3 L19 7 L17 6 L17 16 L7 16 L7 6 L5 7 Z"/>
+        </svg>
+        <div class="card-label">تعداد آیتم‌ها</div>
+      </div>
+      <div class="card-value en-font">{{ items|length }} آیتم</div>
+    </div>
+  </div>
+
+  <!-- Payable Payment CTA -->
+  {% if payable_payment and not request.user.is_staff %}
+  <div class="payable-cta">
+    <div>
+      <div class="cta-text">در انتظار پرداخت</div>
+      <div class="cta-amount en-font">{{ payable_payment.amount_amount|floatformat:0|rial_to_toman|intcomma_latin }}
+        تومان</div>
+    </div>
+    <div>
+      <a href="{% url 'orders:pay' payable_payment.pk %}" style="margin-left: 10px;" class="btn">پرداخت</a>
+      <a href="{% url 'orders:invoice_list' order.id %}" class="btn secondary">پیش‌فاکتور‌ها</a>
+    </div>
+  </div>
+  {% endif %}
+
+
+  <!-- Change Status -->
+  {% if request.user.is_staff %}
+    {% if order.status == orderstatus.NEW or order.status == orderstatus.CONFIRMED or order.status == orderstatus.READY %}
+      <form method="post" action="{% url 'panel:status' order.id %}">
+        {% csrf_token %}
+        <div class="payable-cta">
+          <div style="width: 80%;">
+            <div class="cta-amount en-font">
+              <label for="id_order_status" class="form-label">تغییر وضعیت سفارش</label>
+              <select name="order_status" id="id_order_status" class="form-select" required>
+                <option value="">-- انتخاب کنید --</option>
+                <option value="REVIEW">درحال بررسی</option>
+                <option value="PRODUCTION">درحال تولید</option>
+                <option value="DELIVERED">تحویل شده</option>
+              </select>
+            </div>
+          </div>
+          <div style="width: 15%;">
+            <button type="submit" style="margin-right: 10px;" class="btn">تایید تغییر وضعیت</button>
+          </div>
+        </div>
+      </form>
+    {% endif %}
+  {% endif %}
+
+
+  <!-- Canceled Order Note -->
+  {% if order.status == 'CANCELED' and not request.user.is_staff %}
+  <div class="payable-cta">
+    <div>
+      <div class="cta-text">در انتظار بازپرداخت</div>
+      <div class="cta-amount en-font">مبالغ واریزی شما پس از 48 ساعت کاری به حساب شما بازمیگردد.</div>
+    </div>
+  </div>
+  {% endif %}
+
+  <!-- Customer Info -->
+  {% if request.user.is_staff %}
+    <div class="payable-cta en-font">
+      <div>
+        <div class="cta-text">اطلاعات مشتری</div>
+        <p>نام و نام خانوادگی: {{ user.first_name }} {{ user.last_name }}</p>
+        <p>نام کاربری: {{ user.username }}</p>
+      </div>
+      <div>
+        <p>ایمیل: {{ user.email }}</p>
+        <p>شماره موبایل: {{ user.phone }}</p>
+      </div>
+    </div>
+  {% endif %}
+
+  <!-- Order Items -->
+  <div class="section-title">آیتم‌های سفارش</div>
+  <div class="items-list">
+    {% if items %}
+      <div class="items-list">
+        {% for item in items %}
+        <div class="card" style="margin-bottom: 20px;">
+        <div class="item-row">
+          <div class="item-card item-img">
+
+            <div class="file-thumb">
+              {% for f in item.files.all %}
+    <img src="{{ f.file.url }}" alt="{{ f.description }}">
+{% empty %}
+    <div class="placeholder">بدون تصویر</div>
+{% endfor %}
+
+            </div>
+      
+          </div>
+
+          <div class="item-col">
+            <div class="item-title" style="margin-bottom: 15px; padding: 15px;">
+                عنوان آیتم: {{ item.title }}
+            </div>
+            <div class="item-card item-desc" style="flex-direction: column;">
+              <div style="margin-right: 5px;">
+                توضیحات: 
+              </div>
+              <div class="card" style="overflow-y: auto; height: 170px; background-color: #0f141d !important; padding: 10px; background: unset;">
+                {{ item.description }}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="item-row" style="margin: 0;">
+          <div class="item-col_half card">
+              <div style="height: 50px; font-weight: bold; font-size: 20px;">سایزبندی</div>
+                {% if item.size_mode == 'VIP' %}
+                  {# VIP sizes table #}
+                  {% with vip_sizes=item.vip_sizes.all %}
+                    {% if vip_sizes %}
+                      <div class="vip-table">
+                        <div class="table-headers">
+                          <div class="table-headers_item">سایز</div>
+                          <hr>
+                          <div class="table-headers_item">تعداد</div>
+                        </div>
+                          {% for vs in vip_sizes %}
+                            <div class="table-row">
+                              <div class="table-col en-font">{{ vs.size }}</div>
+                              <hr>
+                              <div class="table-col en-font">{{ vs.quantity }}</div>
+                            </div>
+                          {% endfor %}
+                      </div>
+                    {% else %}
+                      <span class="field-value empty  en-font">سایز VIP ثبت نشده</span>
+                    {% endif %}
+                  {% endwith %}
+
+                {% else %}
+                  {# Range #}
+                  <div class="range-display">
+                    <span class="size-num en-font">
+                        <P>{{ item.size_from|default:"—" }}</P>
+                    </span>
+                    <span class="sep">الی</span>
+                    <span class="size-num en-font">
+                        <P>{{ item.size_to|default:"—" }}</P>
+                    </span>
+                  </div>
+                {% endif %}
+          </div>
+
+          <div class="item-col_half">
+              <div class="card item-col_half_row" style="font-size: 30px; font-weight: bold;">
+                <div>
+                  نوع سایزبندی: 
+                </div>
+                <div class="btn {% if item.size_mode == 'VIP' %} en-font {% else %} secondary{% endif %}">{{ item.get_size_mode_display }}</div>
+            </div>
+              <div class="card item-col_half_row"> 
+                <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                  <div class="card" style="width: 50%; margin-left: 5px;">
+                    جنس پارچه: {{ item.fabric_type }}
+                  </div>
+                  <div class="card en-font" style="width: 50%; margin-right: 5px;">
+                    تعداد کل: {{ item.quantity }}
+                  </div>
+                </div>
+              </div>
+          </div>
+        </div>
+        </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="empty-state">هیچ آیتمی برای این سفارش ثبت نشده است.</div>
+    {% endif %}
+  </div>
+
+<!-- پیام‌ها و پرداخت‌ها در دو ستون -->
+<div class="grid2" style="margin-bottom: 10px;">
+  <div class="card">
+    <h3>پیام‌ها</h3>
+
+
+    <div id="msgs" class="chat-box">
+      {% for m in messages %}
+      <div class="chat-bubble {% if m.sender_id != order.customer_id  %}staff{% else %}customer{% endif %}">
+        <div class="chat-meta en-font">
+          {% if m.sender_id != order.customer_id %}
+          پشتیبانی
+          {% else %}
+          {% if request.user.is_staff %}
+
+            {% if user.first_name and user.last_name %}
+              {{ user.first_name }} {{ user.last_name }}
+            {% elif user.username %}
+              {{ user.username }}
+            {% else %}
+             کاربر
+            {% endif %}
+
+          {% else %}
+          شما
+          {% endif %}
+          {% endif %}
+        </div>
+        <div class="en-font">{{ m.body }}</div>
+        <div class="chat-meta {% if m.sender_id != order.customer_id %}time-right{% else %}time-left{% endif %} en-font">
+          {{ m.created_at|date:"H:i" }}
+        </div>
+      </div>
+      {% empty %}
+      <div class="small" style="opacity:.5; height: 100%;
+          opacity: .5;
+          text-align: center;
+          line-height: 302px;">
+        هنوز پیامی نیست.
+      </div>
+      {% endfor %}
+    </div>
+
+    <hr>
+
+    <form id="msgForm" style="position: relative;">
+      {% csrf_token %}
+      <textarea id="msgText" name="message" placeholder="پیام شما..." style="resize: none; padding-right: 80px;"
+        required></textarea>
+      <button type="submit" class="btn" style="position: absolute;
+          top: 13px;
+          right: 10px;">ارسال</button>
+    </form>
+
+  </div>
+
+  <div class="card">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <h3 style="margin: 0; line-height: 3.8; height: 12.2%;">پرداخت‌ها</h3>
+      
+      <div>
+        <a href="{% if request.user.is_staff %}{% url 'panel:invoice_list' order.id %}{% else %}{% url 'orders:invoice_list' order.id %}{% endif %}" class="btn secondary">
+          <i class="bi bi-list-ul" style="position: relative; top: 3px; font-size: 16px;"></i> لیست فاکتورها
+        </a>
+
+        {% if request.user.is_staff %}
+        <a href="{% url 'panel:create_invoice' order.id %}" class="btn secondary">
+          <i class="bi bi-plus-circle" style="position: relative; top: 3px; font-size: 16px;"></i> صدور فاکتور
+        </a>
+        {% endif %}
+      </div>
+    </div>
+    <div style="height: 87.8%; display: flex; flex-direction: column; justify-content: space-between;">
+      <div id="payments" style="height: 85%;">
+        {% for p in payments %}
+        <div style="margin:8px 0; padding:10px; border:1px solid #2a2f3d; border-radius:10px;">
+          <div style="display: flex;">
+            <div style="width: 5%; margin-left: 10px; display: flex; justify-content: center; align-items: center;">
+              <div style="width: 25px; height: 25px; border-radius: 50%; 
+                  background-color: {% if p.status == 'INACTIVE' %}#810808{% elif p.status == 'PAID' %}#079707{% else %}#ffcb3a{% endif %};
+                   line-height: 25px; text-align: center; text-shadow: #000000 1px 0px 2px; font-weight: bold;" class="en-font">
+                {{ forloop.counter }}
+              </div>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center; width: 95%;">
+              <div><b>{{ p.get_stage_display }}</b> - <span class="badge"
+                  style="background-color: {% if p.status == 'INACTIVE' %}#810808{% elif p.status == 'PAID' %}#079707{% else %}#ffcb3a{% endif %};">
+                  {{ p.get_status_display }}
+                </span></div>
+              <div>
+                <b class="en-font">
+                  {{ p.amount_amount|floatformat:0|rial_to_toman|intcomma_latin }}
+                </b>
+                <span class="small">تومان</span>
+              </div>
+            </div>
+          </div>
+          <div class="small" style="display: flex; justify-content: space-between; align-items: center;">
+            <div class="en-font">
+              {% if p.paid_at %}
+              زمان پرداخت : {{ p.paid_at|to_jalali }}
+              {% endif %}
+            </div>
+            <div class="en-font">
+              {% if p.transaction_id %}
+              شناسه پرداخت: {{ p.transaction_id }}
+              {% endif %}
+            </div>
+          </div>
+        </div>
+        {% empty %}
+        <div class="small">پرداختی وجود ندارد.</div>
+        {% endfor %}
+
+      </div>
+
+      {% if not request.user.is_staff %}
+      {% if payable_payment %}
+      <a href="{% url 'orders:pay' payable_payment.pk %}" class="btn" style="height: 10%;">پرداخت</a>
+      {% else %}
+      <button class="btn secondary" style="height: 10%;" disabled>مبلغ قابل پرداخت وجود ندارد</button>
+      {% endif %}
+      {% else %}
+      {% if inactive_payment and order.status != 'CANCELED' and  inactive_payment.stage != 'READY' %}
+      <a href="{% url 'panel:active_pay' inactive_payment.pk%}" class="btn" style="height: 10%;">فعال کردن پرداخت بعدی</a>
+      {% elif inactive_payment.stage == 'READY' %}
+      <button class="btn secondary" style="height: 10%;" disabled>مرحله پرداخت (آماده تحویل) در زمان تاریخ تحویل فعال میشود</button>
+      {% else %}
+      <button class="btn secondary" style="height: 10%;" disabled>مبلغ قابل پرداخت وجود ندارد</button>
+      {% endif %}
+      {% endif %}
+    </div>
+  </div>
+
+</div>
+</div>
+
+  {% if request.user.is_staff %}
+  <a href="{% url 'panel:cancel' order.id %}" class="btn secondary" style="width: 100%; background: #810808;">لغو سفارش</a>
+  {% endif %}
+{% endblock %}
+
+
+{% block scripts %}
+{{ order.id|json_script:"order-id-data" }}
+<script src="{% static 'js/customer_order_detail.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% load static %}
+<!-- Quick stats -->
+<div class="card" style="margin-bottom: 15px;">
+  <div class="row gap wrap en-font">
+    <div class="stat">جدید: <b>{{ stats.new }}</b></div>
+    <div class="stat">بررسی: <b>{{ stats.review }}</b></div>
+    <div class="stat">پیش‌فاکتور: <b>{{ stats.quoted }}</b></div>
+    <div class="stat">تأیید: <b>{{ stats.confirmed }}</b></div>
+    <div class="stat">تولید: <b>{{ stats.production }}</b></div>
+    <div class="stat">آماده: <b>{{ stats.ready }}</b></div>
+    <div class="stat">تحویل شده: <b>{{ stats.delivered }}</b></div>
+  </div>
+</div>
+
+<!-- Admin Menu -->
+<div class="card" style="margin-bottom: 15px;">
+  <div class="row gap wrap" style="justify-content: space-between;">
+    <a class="stat btn secondary" style="width: 100%; text-align: center; width: 11%;" href="/panel/">داشبورد</a>
+    <a class="stat btn secondary" style="width: 100%; text-align: center; width: 11%;" href="/panel/orders/">سفارشات</a>
+    <a class="stat btn secondary" style="width: 100%; text-align: center; width: 11%;" href="/panel/contact/">پیام ها</a>
+    <a class="stat btn secondary" style="width: 100%; text-align: center; width: 11%;" href="/panel/tutorial/">آموزش</a>
+    <a class="stat btn secondary" style="width: 100%; text-align: center; width: 11%;" href="/panel/blog/">وبلاگ</a>
+    <a class="stat btn secondary" style="width: 100%; text-align: center; width: 11%;" href="/panel/users/">کاربرها</a>
+    <a class="stat btn secondary" style="width: 100%; text-align: center; width: 11%;" href="/panel/sitepage/">صفحات</a>
+    <a class="stat btn secondary" style="width: 100%; text-align: center; width: 11%;" href="/panel/gallery/">گالری</a>
+  </div>
+</div>
+
+<script src="{% static 'js/admin.js' %}"></script>

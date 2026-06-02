@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block meta_robots %}noindex,nofollow{% endblock %}
+{% block meta_title %}مقالات | {{ SITE_NAME }}{% endblock %}
+{% block meta_description %}
+مجموعه‌ای از مقالات آموزشی خیاطی شامل نکات حرفه‌ای دوخت، الگوکشی، انتخاب پارچه و تکنیک‌های کاربردی برای یادگیری بهتر خیاطی.
+{% endblock %}
+
+
+{% block content %}
+
+<section class="page-header">
+    <h1>مقالات</h1>
+</section>
+
+<section class="grid">
+
+{% for article in articles %}
+<article class="card" style="margin-bottom: 15px;">
+
+    <!-- بدنه کارت -->
+    <div class="card-body">
+        <h2 class="card-title" style="margin: 0;">
+            <a href="{% url 'article_detail' article.slug %}">
+                {{ article.title }}
+            </a>
+        </h2>
+    </div>
+
+    <div class="card-info">
+        <!-- تصویر کارت -->
+        <div class="card-image" style="max-width: 20%; min-width: 20%; margin-left: 10px;">
+            {% if article.thumbnail %}
+                <img src="{{article.thumbnail.url}}"
+                    alt="{{ article.title }}"
+                    loading="lazy">
+            {% else %}
+                <img src="{% static 'img/default-article.jpg'%}"
+                    alt="تصویر پیش‌فرض مقاله"
+                    loading="lazy"
+                    style="width: 100%;">
+            {% endif %}
+        </div>
+
+        <div class="card-info_text">
+
+            <div class="card-body" style="padding: 0;">
+                <p class="card-excerpt" style="margin: 0; padding: 0;">
+                    {{ article.excerpt }}
+                </p>
+            </div>
+    
+            <!-- فوتر کارت -->
+            <div class="card-footer">
+                <a href="{% url 'article_detail' article.slug %}"
+                class="btn btn-primary">
+                    ادامه مطلب
+                </a>
+            </div>
+
+        </div>
+    </div>
+</article>
+{% endfor %}
+
+</section>
+
+{% if articles.paginator.num_pages > 1 %}
+<nav class="pagination">
+    {% if articles.has_previous %}
+        <a href="?page={{ articles.previous_page_number }}">قبلی</a>
+    {% endif %}
+    <span>{{ articles.number }} / {{ articles.paginator.num_pages }}</span>
+    {% if articles.has_next %}
+        <a href="?page={{ articles.next_page_number }}">بعدی</a>
+    {% endif %}
+</nav>
+{% endif %}
+
+{% endblock %}

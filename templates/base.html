@@ -1,0 +1,332 @@
+{% load static %}
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+  <!-- SEO -->
+  <title>{% block meta_title %}{{ SITE_NAME }}{% endblock %}</title>
+  <link rel="icon" type="image/png" href="{% static 'img/LOGO.png' %}">
+  <meta name="description" content="{% block meta_description %}{{ SITE_DEFAULT_DESCRIPTION }}{% endblock %}"/>
+  <meta name="robots" content="{% block meta_robots %}index,follow{% endblock %}"/>
+  <link rel="canonical" href="{% block canonical %}{{ CURRENT_URL }}{% endblock %}" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  {% block meta %}{% endblock %}
+  
+  <meta property="og:image" content="{{ SITE_DEFAULT_OG_IMAGE }}">
+  <!-- OG/Twitter (standard) -->
+  
+  <link rel="stylesheet" href="{% static 'css/main.css' %}">
+  <link rel="stylesheet" href="{% static 'css/responsive.css' %}" media="screen and (max-width: 1024px)">
+  <link rel="stylesheet" href="{% static 'vendor/bootstrap-icons/bootstrap-icons.css' %}">
+  <link rel="stylesheet" href="{% static 'css/jalalidatepicker.min.css' %}">
+  
+  
+</head>
+
+<body>
+
+    <div class="dark"></div>
+
+    <div class="mobile mobile-slide_menu">
+
+      <h1 style="padding-right: 20px;">
+        {{ SITE_NAME }}
+      </h1>
+      <nav class="nav mobile-nav">
+  
+            <a href="/">
+                <i class="bi bi-house-door"></i>
+                خانه
+            </a>
+
+            <a href="/about/">
+                <i class="bi bi-info-circle"></i>
+                درباره ما
+            </a>
+
+            <a href="/contact/">
+                <i class="bi bi-telephone"></i>
+                تماس با ما
+            </a>
+
+            <a href="/FAQ/">
+                <i class="bi bi-question-circle"></i>
+                سوالات متداول
+            </a>
+
+            <a href="/tutorials/">
+                <i class="bi bi-mortarboard"></i>
+                آموزش
+            </a>
+
+            <a href="/blog/">
+                <i class="bi bi-journal-text"></i>
+                وبلاگ
+            </a>
+
+  
+          </nav>
+    </div>
+
+    <div class="mobile mobile-slide_account">
+
+      <h1 style="padding-right: 20px;">
+        حساب کاربری
+      </h1>
+      <nav class="nav mobile-nav">
+
+        {% if user.is_authenticated %}
+
+          {% if request.user.is_superuser or request.user.is_staff %}
+            <a href="/panel/" class="cta">
+              <i class="bi bi-speedometer2 me-2"></i>
+              پنل مدیریت
+            </a>
+          {% else %}
+            <a href="/orders/">
+              <i class="bi bi-bag-check me-2"></i>
+              سفارش‌های من
+            </a>
+          {% endif %}
+
+          <a href="/accounts/logout/">
+            <i class="bi bi-box-arrow-right me-2"></i>
+            خروج
+          </a>
+
+        {% else %}
+
+          <a href="/accounts/login/">
+            <i class="bi bi-box-arrow-in-right me-2"></i>
+            ورود
+          </a>
+
+          <a href="/accounts/register/" class="cta">
+            <i class="bi bi-person-plus me-2"></i>
+            ثبت‌نام
+          </a>
+
+        {% endif %}
+
+  
+      </nav>
+    </div>
+
+  <header class="topbar">
+    <div class="container row mobile-header">
+
+      <div class="mobile mobile-menu">
+        <i class="bi bi-list"></i>
+      </div>
+
+      <div class="brand">
+        <div class="logo" aria-hidden="true"><a href="/"><img src="/static/img/LOGO.png" alt="LOGO" style="width: 100%;"></a></div>
+        
+      </div>
+
+      <div class="menu PC-flex">
+
+          <nav class="nav">
+  
+              <a href="/">خانه</a>
+  
+              <a href="/about/">درباره‌ما</a>
+  
+              <a href="/contact/">تماس با‌ما</a>
+  
+              <a href="/FAQ/">سوالات متداول</a>
+
+              <a href="/tutorials/">آموزش</a>
+
+              <a href="/blog/">وبلاگ</a>
+  
+          </nav>
+
+          <nav class="nav">
+    
+            {% if user.is_authenticated %}
+    
+              {% if request.user.is_superuser or request.user.is_staff %}
+                <a href="/panel/" class="cta">پنل مدیریت</a>
+              {% else %}
+                <a href="/orders/">سفارش‌های من</a>
+              {% endif %}
+    
+              <a href="/accounts/logout/">خروج</a>
+            {% else %}
+              <a href="/accounts/login/">ورود</a>
+              <a href="/accounts/register/" class="cta">ثبت‌نام</a>
+            {% endif %}
+          </nav>
+      </div>
+
+      <div class="mobile mobile-menu">
+        <i class="bi bi-person"></i>
+      </div>
+      
+
+
+    </div>
+  </header>
+
+  <main class="container">
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="site-footer" id="siteFooter">
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <span class="dot"></span>
+          <span class="name">{{ SITE_NAME }}</span>
+        </div>
+        <p class="muted">
+          سیستم ثبت سفارش سری‌دوزی — شفاف، مرحله‌ای و مناسب همکاری با مزون‌ها و برندهای پوشاک.
+        </p>
+
+        <div class="footer-cta">
+          {% if user.is_authenticated %}
+            <a class="btn" href="/orders/"><i class="bi bi-box-seam"></i> سفارش‌ها</a>
+          {% else %}
+            <a class="btn" href="/accounts/register/"><i class="bi bi-rocket-takeoff"></i> شروع همکاری</a>
+            <a class="btn secondary" href="/accounts/login/"><i class="bi bi-person-lock"></i> ورود</a>
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h4>دسترسی سریع</h4>
+          <ul>
+            <li><a href="/"><i class="bi bi-house-door"></i> خانه</a></li>
+
+            <li><a href="/orders/"><i class="bi bi-clipboard-check"></i> ثبت/پیگیری سفارش</a></li>
+            
+            <li><a href="/orders/"><i class="bi bi-building"></i>درباره‌ما</a></li>
+
+            <li><a href="/orders/"><i class="bi bi-mortarboard"></i>آموزش</a></li>
+
+            <li><a href="/orders/"><i class="bi bi-newspaper"></i>وبلاگ</a></li>
+            
+            {% if not user.is_authenticated %}
+            <li><a href="/accounts/login/"><i class="bi bi-box-arrow-in-right"></i> ورود</a></li>
+            <li><a href="/accounts/register/"><i class="bi bi-person-plus"></i> ثبت‌نام</a></li>
+            {% endif %}
+          </ul>
+        </div>
+        {% if request.user.is_superuser or request.user.groups.exists or request.user.is_staff %}
+          <div class="footer-col">
+            <h4>کارگاه</h4>
+            <ul>
+              <li><a href="#services"><i class="bi bi-gear"></i> خدمات</a></li>
+              <li><a href="/panel/"><i class="bi bi-speedometer2"></i> پنل مدیریت</a></li>
+              {% if request.user.is_superuser%}
+              <li><a href="/admin/" class="en-font"><i class="bi bi-shield-lock"></i> Django Admin</a></li>
+              {% endif %}
+              <li><a href="#"><i class="bi bi-file-earmark-text"></i> قوانین و شرایط</a></li>
+            </ul>
+          </div>
+        {% endif %}
+
+        <div class="footer-col">
+          <h4>اطلاعات تماس</h4>
+          <ul class="contact">
+            <li class="en-font"><i class="bi bi-geo-alt"></i>
+              {% if BUSINESS.address.addressRegion %} {{ BUSINESS.address.addressRegion }}{% endif %}
+              {% if BUSINESS.address.addressLocality %}، {{ BUSINESS.address.addressLocality }}{% endif %}
+              {% if BUSINESS.address.addressLocality %}،{{ BUSINESS.address.streetAddress }}.{% endif %}
+            </li>
+            <li><i class="bi bi-telephone"></i> <a href="tel:{{ BUSINESS.telephone|escapejs }}" style="direction: ltr; display: flex; flex-direction: row-reverse;" class=" en-font">{{ BUSINESS.telephone|escapejs }}</a></li>
+            <li><i class="bi bi-envelope"></i><a href="mailto:{{ BUSINESS.email|escapejs }}" class="en-font">{{ BUSINESS.email|escapejs }}</a></li>
+            <li><i class="bi bi-clock"></i> شنبه تا پنجشنبه — ۹ تا ۱۸</li>
+          </ul>
+
+          <div class="social">
+            <a href="{{ BUSINESS.INSTAGRAM_URL }}" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+            <a href="{{ BUSINESS.TELEGRAM_URL }}" aria-label="Telegram"><i class="bi bi-telegram"></i></a>
+            <a href="{{ BUSINESS.WHATSAPP_URL }}" aria-label="WhatsApp"><i class="bi bi-whatsapp"></i></a>
+          </div>
+        </div>
+        {% if not request.user.is_staff %}
+        <div class="footer-col">
+          <h4>مجوز‌ها</h4>
+            <ul style="display:flex; align-items: center; justify-content: space-between; height: 276px;flex-direction: column;">
+              <li>
+                  <a referrerpolicy='origin' target='_blank' href='https://trustseal.enamad.ir/?id=723532&Code=AaZoRNgQmEYfn5l7NwiXysWOXROoewWT'><img loading="lazy" referrerpolicy='origin' src='https://trustseal.enamad.ir/logo.aspx?id=723532&Code=AaZoRNgQmEYfn5l7NwiXysWOXROoewWT' alt='' style='cursor:pointer' code='AaZoRNgQmEYfn5l7NwiXysWOXROoewWT'></a>
+              </li>
+              <li>
+                <style>#zarinpal{margin:auto; width: 80px;} #zarinpal img {width: 80px;}</style>
+                <div id="zarinpal">
+                <script src="https://www.zarinpal.com/webservice/TrustCode" type="text/javascript"></script>
+                </div>
+              </li>
+            </ul>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="muted small">
+        © {{ SITE_NAME }} — همه حقوق محفوظ است.
+      </div>
+      <div class="muted small">
+        ساخته‌شده برای اتوماسیون سفارش‌محور کارگاهی <i class="bi bi-lightning-charge"></i>
+      </div>
+    </div>
+  </div>
+</footer>
+
+ <div class="footer-bottom" style="position: sticky; bottom: 0px; background: linear-gradient(135deg, var(--accent), var(--accent-2)); right: 0px; left: 0px; padding: 10px 10px; border: #000 solid 2px; align-items: center; display: flex; justify-content: space-between; line-height: 1;">
+    
+    <div class="mobile" style="display: flex; justify-content: space-between; align-items: center; width: 100%; color: #000; font-size: 16px;">
+      <b class="en-font mobile">طراحی سایت با قیمت مناسب: </b>
+      <a href="tel:09912805945" class="mobile en-font"
+        style="text-decoration: none; color: #000; font-family: IYM !important; font-weight: 700; margin-left: 3px;">09912805945</a>
+    </div>
+
+    <div class="muted small en-font PC" style="font-size: 16px; color: #000;">
+      <b class="en-font PC">Powered By: Hirad Yadegari</b>
+    </div>
+    <div class="muted small PC" style="font-size: 16px; display: flex; align-items: center;">
+      
+      <a href="tel:09912805945" class="PC en-font"
+        style="text-decoration: none; color: #000; font-family: IYM !important; font-weight: 700; margin-left: 3px;">09912805945</a>
+       <strong class="PC en-font" style="color: #000;">:Phone Number</strong>
+    </div>
+
+  </div>
+
+  <!-- Schema.org -->
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"WebSite","name":"{{ SITE_NAME|escapejs }}","url":"{{ SITE_URL|escapejs }}"}
+  </script>
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "{{ BUSINESS.type }}",
+  "name": "{{ BUSINESS.name|escapejs }}",
+  "telephone": "{{ BUSINESS.telephone|escapejs }}",
+  "email": "{{ BUSINESS.email|escapejs }}",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "{{ BUSINESS.address.streetAddress|escapejs }}",
+    "addressLocality": "{{ BUSINESS.address.addressLocality|escapejs }}",
+    "addressRegion": "{{ BUSINESS.address.addressRegion|escapejs }}",
+    "addressCity": "{{ BUSINESS.address.addressCity|escapejs }}",
+    "postalCode": "{{ BUSINESS.address.postalCode|escapejs }}",
+    "addressCountry": "{{ BUSINESS.address.addressCountry|escapejs }}"
+  }
+}
+</script>
+
+  <script src="/static/js/utils.js"></script>
+
+  {% block scripts %}{% endblock %}
+</body>
+</html>

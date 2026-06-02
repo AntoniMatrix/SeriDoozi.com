@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+
+{# ---------------- SEO ---------------- #}
+{% block meta_title %}
+  {% if page.meta_title %}{{ page.meta_title }} | {{ SITE_NAME }}{% else %}{{ page.title }} | {{ SITE_NAME }}{% endif %}
+{% endblock %}
+
+{% block meta_description %}
+  {% if page.meta_description %}{{ page.meta_description }}{% else %}{{ SITE_DEFAULT_DESCRIPTION }}{% endif %}
+{% endblock %}
+
+{% block canonical %}
+  {{ SITE_URL }}{{ page.get_canonical_path }}
+{% endblock %}
+
+{% block content %}
+<section class="card" style="margin-bottom: 10px;">
+  <h1>{{ page.hero_title|default:page.title }}</h1>
+  {% if page.hero_subtitle %}
+    <p class="muted">{{ page.hero_subtitle }}</p>
+  {% endif %}
+</section>
+
+<section class="grid2">
+
+  <div class="card">
+    <h2>ارسال پیام</h2>
+
+    {% if success %}
+      <div class="alert-success">
+        پیام شما ثبت شد. به‌زودی با شما تماس می‌گیریم.
+      </div>
+    {% endif %}
+
+    {% if errors %}
+      <div class="alert-error">
+        <ul style="margin:0; padding-inline-start: 18px;">
+          {% for e in errors %}
+            <li>{{ e }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+
+    <form method="post" action="{% url 'contact' %}" autocomplete="off">
+      {% csrf_token %}
+
+      {# Honeypot anti-bot field (must stay hidden) #}
+      <div style="position:absolute; left:-9999px; top:-9999px;">
+        <label>Website</label>
+        <input type="text" name="website" tabindex="-1" autocomplete="off">
+      </div>
+
+      <div class="field">
+        <label for="id_name">نام</label>
+        <input id="id_name" name="name" type="text" required maxlength="80" value="{{ form_data.name|escape }}">
+      </div>
+
+      <div class="field">
+        <label for="id_email">ایمیل</label>
+        <input id="id_email" name="email" type="email" required maxlength="120" value="{{ form_data.email|escape }}">
+      </div>
+
+      <div class="field">
+        <label for="id_number">شماره موبایل</label>
+        <input id="id_number" name="number" type="number" required maxlength="12" value="{{ form_data.number|escape }}">
+      </div>
+
+      <div class="field">
+        <label for="id_subject">موضوع</label>
+        <input id="id_subject" name="subject" type="text" maxlength="120" value="{{ form_data.subject|escape }}">
+      </div>
+
+      <div class="field">
+        <label for="id_message">پیام</label>
+        <textarea id="id_message" name="message" rows="6" required>{{ form_data.message|escape }}</textarea>
+      </div>
+
+      <button class="btn" type="submit">ارسال پیام</button>
+    </form>
+  </div>
+
+  <div class="card">
+    <h2>اطلاعات تماس</h2>
+
+    {% if page.body %}
+      <div style="line-height:1.9;">
+        {{ page.body|linebreaksbr }}
+      </div>
+      <hr>
+    {% endif %}
+
+<ul class="contact-info">
+  {% if BUSINESS.telephone %}
+    <li><strong>تلفن:</strong> <p style="direction: ltr; display: inline;" class=" en-font">{{ BUSINESS.telephone }}</p></li>
+  {% endif %}
+
+  {% if BUSINESS.email %}
+    <li class=" en-font"><strong>ایمیل:</strong> {{ BUSINESS.email }}</li>
+  {% endif %}
+
+  {% if BUSINESS.address %}
+    <li class="en-font">
+      <strong>آدرس:</strong>
+      
+      {% if BUSINESS.address.addressRegion %}، {{ BUSINESS.address.addressRegion }}{% endif %}
+      {% if BUSINESS.address.addressLocality %}، {{ BUSINESS.address.addressLocality }}{% endif %}
+      {% if BUSINESS.address.addressLocality %}،{{ BUSINESS.address.streetAddress }}.{% endif %}
+    </li>
+    
+    {% if BUSINESS.address.postalCode %}
+      <li>
+        کد پستی: <span class=" en-font">{{ BUSINESS.address.postalCode }}</span>
+      </li>
+    {% endif %}
+  {% endif %}
+</ul>
+        <div class="social">
+            <a href="{{ BUSINESS.INSTAGRAM_URL }}" target="_blank" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+            <a href="{{ BUSINESS.TELEGRAM_URL }}" target="_blank" aria-label="Telegram"><i class="bi bi-telegram"></i></a>
+            <a href="{{ BUSINESS.WHATSAPP_URL }}" target="_blank" aria-label="WhatsApp"><i class="bi bi-whatsapp"></i></a>
+        </div>
+    {% if BUSINESS.mapEmbedURL %}
+      <div class="map-box">
+        <iframe
+          src="{{ BUSINESS.mapEmbedURL|escape }}"
+          width="100%"
+          height="260"
+          style="border:0;"
+          allowFullScreen
+          loading="lazy"
+          ></iframe>
+      </div>
+    {% endif %}
+  </div>
+
+</section>
+
+{% endblock %}
+

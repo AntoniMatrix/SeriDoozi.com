@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+{% load static %}
+{% load jalali_tags %}
+
+{% block meta_robots %}noindex,nofollow{% endblock %}
+{% block meta_title %}مدیریت فرم تماس با ما | {{ SITE_NAME }}{% endblock %}
+
+{% block meta %}
+<link href="/static/ckeditor/ckeditor.css" media="all" rel="stylesheet">
+<style>
+    .django-ckeditor-widget {
+        width: 100%;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+
+{% include "adminpanel/admin_base.html" %}
+
+<div class="form-container">
+    <h2>ایجاد پست جدید</h2>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="form-group">
+            <label for="{{ form.title.id_for_label }}">عنوان *</label>
+            {{ form.title }}
+            {{ form.title.errors }}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.slug.id_for_label }}">اسلاگ *</label>
+            {{ form.slug }}
+            {{ form.slug.errors }}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.excerpt.id_for_label }}">خلاصه</label>
+            {{ form.excerpt }}
+            {{ form.excerpt.errors }}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.thumbnail.id_for_label }}">تصویر شاخص</label>
+            {{ form.thumbnail }}
+            {{ form.thumbnail.errors }}
+        </div>
+
+        <div class="form-group">
+    <!-- اضافه کردن فایل‌های JS و CSS مربوط به CKEditor -->
+    {{ form.media }} 
+    
+    <label for="{{ form.content.id_for_label }}">محتوا *</label>
+    <br>
+    
+    <!-- نمایش فیلد که حالا به ادیتور تبدیل شده -->
+    {{ form.content }}
+
+    {% if form.content.errors %}
+        <div class="text-danger">
+            {{ form.content.errors }}
+        </div>
+    {% endif %}
+</div>
+
+        <div class="form-group">
+            <label for="{{ form.meta_title.id_for_label }}">عنوان متا</label>
+            {{ form.meta_title }}
+            {{ form.meta_title.errors }}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.meta_description.id_for_label }}">توضیحات متا</label>
+            {{ form.meta_description }}
+            {{ form.meta_description.errors }}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.canonical_url.id_for_label }}">URL کانونیکال</label>
+            {{ form.canonical_url }}
+            {{ form.canonical_url.errors }}
+        </div>
+
+        <div class="flex-container">
+
+            <label class="required" for="id_status">Status:</label>
+
+            <select name="status" id="id_status" fdprocessedid="pj4ckn">
+                <option value="draft">در صف انتشار</option>
+
+                <option value="published" selected>منتشر شده</option>
+
+            </select>
+
+
+        </div>
+
+        <button type="submit" class="btn">ایجاد پست</button>
+    </form>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/ckeditor/ckeditor-init.js" data-ckeditor-basepath="/static/ckeditor/ckeditor/" id="ckeditor-init-script"></script>
+<script src="/static/ckeditor/ckeditor/ckeditor.js"></script>
+{% endblock %}

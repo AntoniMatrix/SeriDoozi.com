@@ -1,0 +1,155 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block meta_title %}ایجاد فاکتور - سفارش #{{ order.id }}  | {{ SITE_NAME }}{% endblock %}
+
+{% block content %}
+
+{% include "adminpanel/admin_base.html" %}
+
+<div class="row justify-content-center mt-4" style="display: flex; justify-content: space-between; align-items: center; flex-direction: column; width: 100%;">
+  <div class="col-lg-9" style="width: 100%;">
+
+    <h4 class="mb-4 en-font">تنظیم تاریخ تحویل</h4>
+
+    <form method="post" id="deadline-form">
+        {% csrf_token %}
+        
+        <div class="card mb-4">
+            <div class="card-header">تاریخ تحویل</div>
+            <div class="card-body row g-3" style="justify-content: space-between;">
+
+                <div class="col-md-6" style="width: 85%;">
+                    <input name="deadline" id="deadline" class="form-control form-control-sm en-font" placeholder="تاریخ تحویل را وارد کنید" autocomplete="off" required data-jdp>
+                </div>
+
+                <div class="col-md-6 en-font" style="width: 15%;">
+                    <button type="submit" name="save_deadline" class="btn" style="width: 100%;">ذخیره تاریخ تحویل</button>
+                </div>
+
+            </div>
+        </div>
+    </form>
+
+    <h4 class="mb-4 en-font">ایجاد فاکتور برای سفارش #{{ order.id }} — {{ order.title }}</h4>
+
+    <form method="post" id="invoice-form">
+      {% csrf_token %}
+
+      <div class="card mb-4">
+        <div class="card-header">اطلاعات فاکتور</div>
+        <div class="card-body row g-3">
+
+          <div class="col-md-6" style="width: 50%;">
+            <label for="id_invoice_type" class="form-label">نوع فاکتور <span class="text-danger">*</span></label>
+            <select name="invoice_type" id="id_invoice_type" class="form-select" required>
+              <option value="">-- انتخاب کنید --</option>
+              <option value="MATERIAL">خرید پارچه/متریال</option>
+              <option value="EXECUTION">اجرا</option>
+            </select>
+          </div>
+
+          <div class="col-md-6 en-font"  style="width: 50%;">
+            <label for="id_tax_rate" class="form-label">نرخ مالیات (%):  
+                <span class="form-text">پیش‌فرض ۱۰٪</span>
+            </label>
+
+            <input type="number" name="tax_rate" id="id_tax_rate"
+                   class="form-control" value="10" min="0" max="100">
+          </div>
+
+        </div>
+      </div>
+
+      <div class="card mb-4" style="margin-top: 15px;">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <span>آیتم‌های فاکتور</span>
+          <button type="button" class="btn btn-sm btn-outline-primary" id="add-item">
+            <i class="bi bi-plus-lg"></i> افزودن ردیف
+          </button>
+        </div>
+        <div class="card-body">
+
+          <div class="table-responsive">
+            <table class="table table-bordered align-middle" id="items-table">
+              <thead class="table-light">
+                <tr>
+                  <th style="width: 10%">عنوان <span class="text-danger">*</span></th>
+                  <th style="width:70%">توضیحات</th>
+                  <th style="width:5%">تعداد <span class="text-danger">*</span></th>
+                  <th style="width:5%">واحد</th>
+                  <th style="width:7%">قیمت واحد (ریال) <span class="text-danger">*</span></th>
+                  <th style="width:3%"></th>
+                </tr>
+              </thead>
+              <tbody id="items-body" style="width: 100%;">
+                <!-- ردیف اول پیش‌فرض -->
+                <tr style="width: 100%;" class="item-row-value en-font">
+                  <td style="width: 10%">
+                    <input type="text" name="items-0-title" class="form-control form-control-sm"
+                           placeholder="عنوان آیتم" required maxlength="255">
+                  </td>
+                  <td style="width:70%">
+                    <input type="text" name="items-0-description" class="form-control form-control-sm"
+                           placeholder="توضیحات (اختیاری)">
+                  </td>
+                  <td style="width:5%">
+                    <input type="number" name="items-0-quantity" class="form-control form-control-sm qty"
+                           value="1" min="1" required>
+                  </td>
+                  <td style="width:5%">
+                    <input type="text" name="items-0-unit" class="form-control form-control-sm"
+                           value="عدد" maxlength="50">
+                  </td>
+                  <td style="width:7%">
+                    <input type="number" name="items-0-unit_price_amount"
+                           class="form-control form-control-sm price" min="0" required>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- شمارنده پنهان برای تعداد ردیف‌ها -->
+          <input type="hidden" name="items-TOTAL_FORMS" id="id_items-TOTAL_FORMS" value="1">
+
+        </div>
+      </div>
+
+      <div class="card mb-4" style="margin: 15px 0;">
+        <div class="card-body">
+          <div class="row justify-content-end">
+            <div class="col-md-4">
+              <table class="table table-sm mb-0 en-font">
+                <tr>
+                  <td>جمع آیتم‌ها:</td>
+                  <td class="text-end" id="summary-subtotal">۰ ریال</td>
+                </tr>
+                <tr>
+                  <td>مالیات (<span id="summary-tax-rate">۱۰</span>٪):</td>
+                  <td class="text-end" id="summary-tax">۰ ریال</td>
+                </tr>
+                <tr class="fw-bold">
+                  <td>جمع کل:</td>
+                  <td class="text-end" id="summary-total">۰ ریال</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="d-flex gap-2 justify-content-end mb-5">
+        <a href="{% url 'panel:detail' order.id %}" class="btn secondary">انصراف</a>
+        <button type="submit" name="save_invoice" class="btn">ذخیره فاکتور</button>
+      </div>
+
+    </form>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/jalalidatepicker.min.js' %}"></script>
+<script src="{% static 'js/admin_invoice.js' %}"></script>
+{% endblock %}

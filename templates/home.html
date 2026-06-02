@@ -1,0 +1,188 @@
+{% extends "base.html" %}
+{% load jalali_tags %}
+
+{% block meta_title %}{{ SITE_NAME }}{% endblock %}
+
+{% block content %}
+<section class="container">
+  <div class="panel hero">
+    <div class="hero-bg"></div>
+
+    <div class="hero-content">
+      <div class="info">
+        <h1>اتوماسیون صنعتی تولید پوشاک</h1>
+        <p class="muted">
+          سفارش عمده را ثبت کنید، فایل و نمونه را ارسال کنید، پیش‌فاکتور دریافت کنید و مرحله‌به‌مرحله وضعیت تولید را پیگیری کنید.
+        </p>
+
+        <div class="actions">
+          {% if user.is_authenticated %}
+            {% if user.is_superuser or user.groups.exists %}
+              <a class="btn secondary" href="/panel/">پنل مدیریت</a>
+            {% else %}
+              <a class="btn" href="/orders/">ثبت/پیگیری سفارش</a>
+            {% endif %}
+          {% else %}
+            <a class="btn" href="/accounts/register/">شروع همکاری</a>
+            <a class="btn secondary" href="/accounts/login/">ورود مشتری</a>
+          {% endif %}
+          <a class="btn ghost" href="#services">مشاهده خدمات</a>
+        </div>
+      </div>
+
+      <div class="quick">
+        <div class="q">
+          <div class="badge">ورود سریع</div>
+          <div style="margin-top:8px" class="muted">ثبت سفارش مرحله‌ای</div>
+          <div class="small">بدون تماس‌های طولانی</div>
+        </div>
+        <div class="q">
+          <div class="badge">شفافیت</div>
+          <div style="margin-top:8px" class="muted">پیش‌فاکتور و قیمت‌گذاری</div>
+          <div class="small">قابل پیگیری در پنل</div>
+        </div>
+        <div class="q">
+          <div class="badge">کنترل کیفیت</div>
+          <div style="margin-top:8px" class="muted">ارسال نمونه و فایل</div>
+          <div class="small">ضمیمه داخل سفارش</div>
+        </div>
+        <div class="q">
+          <div class="badge">تحویل</div>
+          <div style="margin-top:8px" class="muted">زمان‌بندی تولید</div>
+          <div class="small">وضعیت لحظه‌ای</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="services" class="section-title">
+    <h2>خدمات اتوماسیون کارگاهی</h2>
+    <div class="line"></div>
+    <div class="small">سفارش‌محور</div>
+  </div>
+
+  <div class="grid2">
+    <div class="card">
+      <div class="feature">
+        <div class="ico">
+          <i class="bi bi-scissors"></i>
+        </div>
+        <div>
+          <h3>برش و آماده‌سازی</h3>
+          <p>ثبت جزئیات سایزبندی، نوع پارچه، تعداد و توضیحات برای کاهش خطا.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="feature">
+        <div class="ico">
+          <i class="bi bi-gear"></i>
+        </div>
+        <div>
+          <h3>سری‌دوزی صنعتی</h3>
+          <p>ثبت سفارش‌های عمده با مدیریت وضعیت تولید مرحله‌به‌مرحله.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="feature">
+        <div class="ico">
+          <i class="bi bi-building-gear"></i>
+        </div>
+        <div>
+          <h3>الگو و فایل</h3>
+          <p>آپلود فایل‌ها/نمونه‌ها داخل سفارش و کنترل دسترسی برای امنیت.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="feature">
+        <div class="ico">
+          <i class="bi bi-paperclip"></i>
+        </div>
+        <div>
+          <h3>تحویل و فاکتور</h3>
+          <p>ثبت پیش‌فاکتور، بیعانه و گزارش‌های مالی با دسترسی نقش‌محور.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-title">
+    <h2>نمونه سفارش‌ها و پروژه‌ها</h2>
+    <div class="line"></div>
+    <div class="small">۱۰ سفارش آخر</div>
+  </div>
+
+  <div class="orders-marquee" aria-label="آخرین سفارش‌ها">
+    <div class="marquee-track">
+      {# بار اول #}
+      {% for s in slides %}
+        {% if s.kind == "order" %}
+          <div class="marquee-slide card soft">
+            <div class="row" style="justify-content:space-between; gap:10px;">
+              <div class="badge en-font">سفارش #{{ s.obj.id }}</div>
+              <div class="muted small">{{ s.obj.get_status_display }}</div>
+            </div>
+
+            <h3 style="margin:10px 0 6px">{{ s.obj.title }}</h3>
+
+            <div class="muted en-font">
+              تعداد کل: {% if s.obj.total_qty %}{{ s.obj.total_qty }}{% else %}0{% endif %}
+              {% if s.obj.deadline %} • ددلاین: {{ s.obj.deadline|to_jalali }}{% endif %}
+            </div>
+
+            <div class="small muted en-font" style="margin-top:10px">
+              {{ s.obj.created_at|to_jalali }}
+            </div>
+          </div>
+        {% else %}
+        {% endif %}
+      {% endfor %}
+
+      {# بار دوم (کپی برای لوپ بدون پرش) #}
+      {% for s in slides %}
+        {% if s.kind == "order" %}
+          <div class="marquee-slide card soft" aria-hidden="true">
+            <div class="row" style="justify-content:space-between; gap:10px;">
+              <div class="badge en-font">سفارش #{{ s.obj.id }}</div>
+              <div class="muted small">{{ s.obj.get_status_display }}</div>
+            </div>
+
+            <h3 style="margin:10px 0 6px">{{ s.obj.title }}</h3>
+
+            <div class="muted en-font">
+              تعداد کل: {% if s.obj.total_qty %}{{ s.obj.total_qty }}{% else %}0{% endif %}
+              {% if s.obj.deadline %} • ددلاین: {{ s.obj.deadline|to_jalali }}{% endif %}
+            </div>
+
+            <div class="small muted en-font" style="margin-top:10px">
+              {{ s.obj.created_at|to_jalali }}
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="panel" style="margin-top:18px; padding:18px;">
+    <div class="row wrap">
+      <div>
+        <h2 style="margin:0 0 6px">می‌خوای همین الان سفارش ثبت کنی؟</h2>
+        <div class="muted">داخل پنل، سفارش‌ها و پیام‌ها و فایل‌ها یکجا مدیریت می‌شن.</div>
+      </div>
+      <div class="row wrap">
+        {% if user.is_authenticated %}
+          <a class="btn" href="/orders/">ورود به سفارش‌ها</a>
+        {% else %}
+          <a class="btn" href="/accounts/register/">شروع همکاری</a>
+          <a class="btn secondary" href="/accounts/login/">ورود</a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

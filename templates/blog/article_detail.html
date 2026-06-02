@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% load static %}
+{% load jalali_tags %}
+
+{# ---------------- SEO ---------------- #}
+{% block meta_title %}
+    {{ article.meta_title|default:article.title }} | {{ SITE_NAME }}
+{% endblock %}
+
+{% block meta_description %}
+  {{ article.meta_description|default:article.excerpt }}
+{% endblock %}
+
+{% block meta %}
+<link rel="canonical"
+      href="{{ article.canonical_url|default:request.build_absolute_uri }}">
+      <style>
+        iframe{
+            height: 450px;
+            width: 100%;
+        }
+      </style>
+{% endblock %}
+
+{% block content %}
+
+<article class="article-detail">
+
+    <!-- هدر مقاله -->
+    <header class="article-header">
+        <h1 class="article-title">
+            {{ article.title }}
+        </h1>
+
+        {% if article.published_at %}
+        <div class="article-meta en-font">
+            <time datetime="{{ article.published_at|to_jalali }}">
+                {{ article.published_at|to_jalali }}
+            </time>
+        </div>
+        {% endif %}
+
+        {% if article.thumbnail %}
+        <figure class="article-thumbnail">
+            <img src="/static/img/{{ article.thumbnail }}"
+                 alt="{{ article.title }}"
+                 loading="eager">
+        </figure>
+        {% endif %}
+    </header>
+
+    <!-- محتوای مقاله -->
+    <section class="article-content">
+        {{ content|safe }}
+    </section>
+
+    <!-- فوتر مقاله -->
+    <footer class="article-footer">
+        <a href="{% url 'article_list' %}" class="btn btn-outline">
+            بازگشت به مقالات
+        </a>
+    </footer>
+
+</article>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/admin_blogs.js' %}"></script>
+{% endblock %}

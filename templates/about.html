@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{# ---------------- SEO ---------------- #}
+{% block meta_title %}
+  {% if page.meta_title %}{{ page.meta_title }} | {{ SITE_NAME }}{% else %}{{ page.title }} | {{ SITE_NAME }}{% endif %}
+{% endblock %}
+
+{% block meta_description %}
+  {% if page.meta_description %}{{ page.meta_description }}{% else %}{{ SITE_DEFAULT_DESCRIPTION }}{% endif %}
+{% endblock %}
+
+{% block canonical %}
+  {{ SITE_URL }}{{ page.get_canonical_path }}
+{% endblock %}
+
+{% block content %}
+  <section class="card" style="margin-bottom: 10px;">
+    <h1>{{ page.hero_title|default:page.title }}</h1>
+    {% if page.hero_subtitle %}
+      <p class="muted">{{ page.hero_subtitle }}</p>
+    {% endif %}
+  </section>
+
+  <section class="grid2" style="margin-bottom: 10px;">
+    <div class="card">
+      <h2>{{ page.title }}</h2>
+
+      {# Security: render body as plain text with line breaks (NO |safe). #}
+      <div style="line-height: 1.9;">
+        {{ page.body|linebreaksbr }}
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>مزیت‌ها</h2>
+      {% if page.highlights_json %}
+        <ul style="list-style:none; padding:0; margin:0; display:grid; gap:10px;">
+          {% for item in page.highlights_json %}
+            <li style="padding:10px 12px; border:1px solid rgba(255,255,255,0.08); border-radius:12px;">
+              <strong>{{ item.title }}</strong>
+              <div class="muted">{{ item.desc }}</div>
+            </li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <p class="muted">به‌زودی تکمیل می‌شود…</p>
+      {% endif %}
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>شروع همکاری</h2>
+    <p class="muted">برای ثبت سفارش سری‌دوزی، فرم ثبت سفارش را تکمیل کنید.</p>
+    <a class="btn" href="/orders/">ثبت سفارش</a>
+  </section>
+{% endblock %}

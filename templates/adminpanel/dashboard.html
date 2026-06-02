@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block meta_robots %}noindex,nofollow{% endblock %}
+{% block meta_title %}داشبورد ادمین | {{ SITE_NAME }}{% endblock %}
+{% block active %}Dashboard{% endblock %}
+{% block content %}
+
+{% include "adminpanel/admin_base.html" %}
+
+<!-- Permission visibility (useful for debugging role setup) -->
+<div class="card">
+  <h3>دسترسی‌های شما</h3>
+  <ul>
+    <li class="info-card" style="margin-bottom: 15px;">سفارشات: 
+      {% if perms.view_all_orders %}
+        <b class="card-value yes">✓ بله</b>
+      {% else %}
+        <b class="card-value no">خیر</b>
+      {% endif %}
+    </li class="info-card" style="margin-bottom: 15px;">
+    <li class="info-card" style="margin-bottom: 15px;">تغییر وضعیت: 
+      {% if perms.change_order_status %}
+        <b class="card-value yes">✓ بله</b>
+      {% else %}
+        <b class="card-value no">خیر</b>
+      {% endif %}
+    </li class="info-card" style="margin-bottom: 15px;">
+    <li class="info-card" style="margin-bottom: 15px;">تنظیم قیمت: 
+      {% if perms.set_pricing %}
+        <b class="card-value yes">✓ بله</b>
+      {% else %}
+        <b class="card-value no">خیر</b>
+      {% endif %}
+    </li class="info-card" style="margin-bottom: 15px;">
+    <li class="info-card" style="margin-bottom: 15px;">دسترسی مالی: 
+      {% if perms.view_financial_reports %}
+        <b class="card-value yes">✓ بله</b>
+      {% else %}
+        <b class="card-value no">خیر</b>
+      {% endif %}
+    </li class="info-card" style="margin-bottom: 15px;">
+  </ul>
+
+  <a class="btn" href="/panel/orders/">مدیریت سفارش‌ها</a>
+</div>
+
+{% endblock %}

@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% load static %}
+{% block meta_robots %}noindex,nofollow{% endblock %}
+{% block meta_title %}ویرایش صفحه | {{ SITE_NAME }}{% endblock %}
+{% block content %}
+
+{% include "adminpanel/admin_base.html" %}
+
+<div class="container orders-container card py-4 en-font" style="max-width: 800px;">
+
+  <div style="margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center;">
+    <h2 class="orders-title">
+      <i class="bi bi-pencil-square" style="font-size: 20px; line-height: 0.7; padding: 2px 0 0 0;"></i>
+      ویرایش صفحه: <code>{{ page.key }}</code>
+    </h2>
+    <a href="{% url 'panel:page_list' %}" class="btn btn-outline-secondary btn-sm">بازگشت</a>
+  </div>
+
+  {% if messages %}
+    {% for msg in messages %}
+      <div class="alert alert-{{ msg.tags }}">{{ msg }}</div>
+    {% endfor %}
+  {% endif %}
+
+  <form method="post" novalidate>
+    {% csrf_token %}
+
+    <div class="card mb-3" style="margin: 20px 0;">
+      <div class="card-header">اطلاعات اصلی</div>
+      <div class="card-body row g-3">
+        <div class="col-12">
+          <label class="form-label">عنوان صفحه</label>
+          <input type="text" name="title" value="{{ page.title }}" class="form-control" maxlength="120">
+        </div>
+        <div class="col-12">
+          <label class="form-label">Hero Title</label>
+          <input type="text" name="hero_title" value="{{ page.hero_title }}" class="form-control" maxlength="120">
+        </div>
+        <div class="col-12">
+          <label class="form-label">Hero Subtitle</label>
+          <input type="text" name="hero_subtitle" value="{{ page.hero_subtitle }}" class="form-control" maxlength="240">
+        </div>
+        <div class="col-12">
+          <label class="form-label">محتوا (body)</label>
+          <textarea name="body" rows="8" class="form-control"  style="resize: none;">{{ page.body }}</textarea>
+        </div>
+      </div>
+    </div>
+
+    <div class="card mb-3">
+      <div class="card-header">SEO</div>
+      <div class="card-body row g-3">
+        <div class="col-12">
+          <label class="form-label">Meta Title <small class="text-muted">(max 70)</small></label>
+          <input type="text" name="meta_title" value="{{ page.meta_title }}" class="form-control" maxlength="70">
+        </div>
+        <div class="col-12">
+          <label class="form-label">Meta Description <small class="text-muted">(max 160)</small></label>
+          <textarea name="meta_description" rows="2" class="form-control" style="resize: none;" maxlength="160">{{ page.meta_description }}</textarea>
+        </div>
+        <div class="col-12">
+          <label class="form-label">Canonical Path</label>
+          <input type="text" name="canonical_path" value="{{ page.canonical_path }}"
+                 class="form-control" placeholder="/about/" maxlength="200">
+          <div class="form-text">
+            خالی بگذارید تا خودکار تنظیم شود: <code>{{ page.get_canonical_path }}</code>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card mb-4" style="margin: 20px 0;">
+      <div class="card-body">
+        <div class="form-check form-switch">
+            <input class="checkbox" type="checkbox" name="is_published" id="is_published"
+            {% if page.is_published %}checked{% endif %}>
+            <label for="is_published">منتشر شده</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12">
+        <label class="form-label">مزیت‌ها</label>
+        <textarea name="highlights_json" rows="8" class="form-control en-font" style="resize: none;">{{highlights_display}}</textarea>
+    </div>
+
+
+    <button type="submit" class="btn btn-primary px-4">ذخیره</button>
+  </form>
+
+</div>
+
+<script src="{% static 'js/page_highlights.js' %}"></script>
+
+{% endblock %}

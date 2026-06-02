@@ -1,0 +1,142 @@
+{% extends "base.html" %}
+{% load static %}
+{% load jalali_tags %}
+
+{% block meta_robots %}noindex,nofollow{% endblock %}
+{% block meta_title %}ثبت آموزش | {{ SITE_NAME }}{% endblock %}
+{% block active %}Dashboard{% endblock %}
+{% block content %}
+
+{% include "adminpanel/admin_base.html" %}
+<div class="container-fluid py-4">
+    <div class="row mb-4">
+        <div class="col-12">
+            <h2 class="mb-3">ثبت آموزش‌ها</h2>
+            
+            {% if messages %}
+                {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="row en-font" style="align-items: flex-start;">
+        <div class="col-lg-4 mb-4" style="width: 50%;">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">افزودن آموزش جدید</h5>
+                </div>
+                <div class="card-body">
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        
+                        <div class="mb-3">
+                            <label for="title" class="form-label">عنوان</label>
+                            <input type="text" class="form-control" id="title" name="title" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="slug" class="form-label">اسلاگ</label>
+                            <input type="text" class="form-control" id="slug" name="slug" required>
+                            <small class="text-muted">فقط حروف انگلیسی، اعداد و خط تیره</small>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="thumbnail" class="form-label">تصویر شاخص</label>
+                            <input type="file" class="form-control" id="thumbnail" name="thumbnail" accept="image/*" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="video" class="form-label">آیدی ویدیو آپارات</label>
+                            <input type="text" class="form-control" id="video" name="video" placeholder="فقط آیدی را وارد کنید مثل: fxqm719" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="description" class="form-label">توضیحات</label>
+                            <textarea class="form-control" id="description" name="description" rows="4" style="resize: none;"></textarea>
+                        </div>
+
+                        <div class="mb-3 form-check card" style="margin-bottom: 15px;">
+                            <input class="checkbox" type="checkbox" name="is_active" id="is_active">
+                            <label for="is_active">منتشر شده</label>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100">ایجاد آموزش</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-8" style="width: 50%;">
+    <div class="card">
+        <div class="card-header">
+            <h5 class="mb-0">لیست آموزش‌ها</h5>
+        </div>
+        <div class="card-body" style="max-height: 600px; overflow-y: auto;">
+            {% if tutorials %}
+            <div class="table-responsive">
+                <table class="table table-striped table-hover orders-table align-middle">
+                    <thead>
+                        <tr>
+                            <th>تصویر</th>
+                            <th>عنوان</th>
+                            <th>اسلاگ</th>
+                            <th>وضعیت</th>
+                            <th>تاریخ ایجاد</th>
+                            <th>عملیات</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for tutorial in tutorials %}
+                        <tr>
+                            <td>
+                                <img src="{{ tutorial.thumbnail.url }}" alt="{{ tutorial.title }}"
+                                     style="width: 60px; height: 60px; object-fit: cover; border-radius: 4px;">
+                            </td>
+                            <td>{{ tutorial.title }}</td>
+                            <td><code class="en-font">{{ tutorial.slug }}</code></td>
+                            <td>
+                                {% if tutorial.is_active %}
+                                <span class="order-status-badge order-status-new">فعال</span>
+                                {% else %}
+                                <span class="order-status-badge" style="background-color: #e9ecef; color: #6c757d;">غیرفعال</span>
+                                {% endif %}
+                            </td>
+                            <td class="en-font">{{ tutorial.created_at|to_jalali }}</td>
+                            <td>
+                                <a href="{% url 'tutorial_detail' tutorial.slug %}" target="_blank" class="btn btn-primary btn-sm order-detail-btn">
+                                    <i class="bi bi-play-fill" style="font-size: 14px; top: 2px; position: relative; line-height: 0.7;"></i>
+                                </a>
+                                <a href="#" class="btn btn-warning btn-sm order-detail-btn">
+                                    <i class="bi bi-pencil-fill" style="font-size: 14px; top: 2px; position: relative; line-height: 0.7;"></i>
+                                </a>
+                                <a href="#" class="btn btn-danger btn-sm order-detail-btn">
+                                    <i class="bi bi-check-circle-fill x" style="font-size: 14px; top: 2px; position: relative; line-height: 0.7;"></i>
+                                </a>
+                                <a href="#" class="btn btn-danger btn-sm order-detail-btn">
+                                    <i class="bi bi-trash-fill" style="font-size: 14px; top: 2px; position: relative; line-height: 0.7;"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+            <div class="text-center py-5">
+                <i class="bi bi-camera-video" style="font-size: 3rem; color: #adb5bd;"></i>
+                <p class="text-muted mt-3">هنوز آموزشی ایجاد نشده است</p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

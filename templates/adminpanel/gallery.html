@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block meta_robots %}noindex,nofollow{% endblock %}
+{% block meta_title %}مدیریت گالری | {{ SITE_NAME }}{% endblock %}
+{% block active %}Dashboard{% endblock %}
+{% block content %}
+
+{% include "adminpanel/admin_base.html" %}
+
+<div class="card">
+  
+<div style="margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center;">
+    <div>
+      <h2 class="orders-title">
+        <i class="bi bi-image" style="font-size: 20px;
+                    line-height: 0.7;
+                    padding: 2px 0 0 0;;"></i>
+        گالری
+      </h2>
+    </div>
+  </div>
+
+  <form method="post" enctype="multipart/form-data">
+
+    {% csrf_token %}
+
+    <div style="display: flex; align-items: center; justify-content: space-between;">
+        <div style="width: calc(100% - 370px);">
+            <label for="LOGO">لوگو (PNG)</label>
+            <input type="file" name="LOGO" accept=".png,image/png">
+        </div>
+        <img src="{% static 'img/LOGO.png' %}?v={{ ts }}" alt="LOGO" width="350px">
+    </div>
+    <div style="display: flex; align-items: center; justify-content: space-between; margin: 15px 0;">
+        <div style="width: calc(100% - 370px);">
+            <label for="hero">بنر اصلی (JPG)</label>
+            <input type="file" name="hero" accept=".jpg,.jpeg,image/jpeg">
+        </div>
+        <img src="{% static 'img/hero.jpg' %}?v={{ ts }}" alt="LOGO" width="350px">
+    </div>
+    <div style="display: flex; align-items: center; justify-content: space-between;">
+        <div style="width: calc(100% - 370px);">
+            <label for="article">تصویر پیشفرض مقالات (JPG)</label>
+            <input type="file" name="article" accept=".jpg,.jpeg,image/jpeg">
+        </div>
+        <img src="{% static 'img/default-article.jpg' %}?v={{ ts }}" alt="LOGO" width="350px">
+    </div>
+    <div style="display: flex; align-items: center; justify-content: space-between; margin: 15px 0;">
+        <div style="width: calc(100% - 370px);">
+            <label for="OG">تصویر پیشفرض لینک ها (JPG)</label>
+            <input type="file" name="OG" accept=".jpg,.jpeg,image/jpeg">
+        </div>
+        <img src="{% static 'img/og-default.jpg' %}?v={{ ts }}" alt="LOGO" width="350px">
+    </div>
+
+    <button type="submit" class="btn">ذخیره</button>
+    
+  </form>
+
+  
+</div>
+
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block meta_robots %}noindex,nofollow{% endblock %}
+{% block meta_title %}{{ tutorial.title }} | {{ SITE_NAME }}{% endblock %}
+{% block meta_description %}{{tutorial.description}}{% endblock %}
+
+{% block content %}
+
+<section class="tutorial-detail">
+    <div class="container">
+
+        <h1 class="tutorial-title">{{ tutorial.title }}</h1>
+
+        <div class="tutorial-video">
+            <div class="video-wrapper">
+                <iframe
+                    src="https://www.aparat.com/video/video/embed/videohash/{{ tutorial.video }}/vt/frame"
+                    allowfullscreen>
+                </iframe>
+            </div>
+        </div>
+
+        {% if tutorial.description %}
+        <div class="tutorial-description">
+            {{ tutorial.description|linebreaks }}
+        </div>
+        {% endif %}
+
+    </div>
+</section>
+
+{% endblock %}
