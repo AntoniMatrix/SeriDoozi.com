@@ -326,7 +326,7 @@ SITE_DEFAULT_OG_IMAGE = os.getenv("SITE_DEFAULT_OG_IMAGE", "/static/img/og-defau
 BUSINESS = {
     "name": SITE_NAME,
     "type": "LocalBusiness",
-    "telephone": os.environ.get("BUSINESS_PHONE", ""),
+    "telephone": os.getenv("BUSINESS_PHONE", ""),
     "email": os.getenv("BUSINESS_EMAIL", ""),
     "address": {
         "streetAddress": os.getenv("BUSINESS_STREET", "تهرانپارس بلوار پروین خیابان 196شرقی خیابان 133جنوبی پلاک127"),
