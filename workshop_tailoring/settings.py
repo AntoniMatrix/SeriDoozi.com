@@ -10,43 +10,21 @@ Goals:
 
 from pathlib import Path
 import os
-from dotenv import load_dotenv
 import pymysql
 
 pymysql.install_as_MySQLdb()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-load_dotenv(BASE_DIR / "info.env", encoding='utf-8')
-
-# خواندن مستقیم از فایل بدون os.environ
-def load_config():
-    config = {}
-    env_file = BASE_DIR / "info.env"
-    if env_file.exists():
-        with open(env_file, 'r', encoding='utf-8') as f:
-            for line in f:
-                line = line.strip()
-                if line and not line.startswith('#') and '=' in line:
-                    key, value = line.split('=', 1)
-                    config[key.strip()] = value.strip().strip('"').strip("'")
-    return config
-
-CONFIG = load_config()
-
 
 # ----------------------------
 # Core
 # ----------------------------
-SECRET_KEY = os.getenv("SECRET_KEY", "dev-secret-key")
-DEBUG = os.getenv("DEBUG","0") == "1"
+SECRET_KEY = "e(df#yn$beiv_0dz^rr(@h*%x)82!4d&um_#m(5c88q0+qeez2"
+DEBUG = os.environ.get("DEBUG") == "True"
 
-ALLOWED_HOSTS = [
-    os.getenv("ALLOWED_HOST_1","localhost"),
-    os.getenv("ALLOWED_HOST_2","www.localhost.org"),
-    os.getenv("ALLOWED_HOST_3","127.0.0.1"),
-]
-
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(",")
+    
 # ----------------------------
 # Apps
 # ----------------------------
@@ -126,11 +104,11 @@ ASGI_APPLICATION = "workshop_tailoring.asgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
-        "NAME": os.getenv("DB_NAME", "workshop_db"),
-        "USER": os.getenv("DB_USER", "workshop_user"),
-        "PASSWORD": os.getenv("DB_PASSWORD", "workshop_pass"),
-        "HOST": os.getenv("DB_HOST", "127.0.0.1"),
-        "PORT": os.getenv("DB_PORT", "3306"),
+        "NAME": os.environ.get("DB_NAME"),
+        "USER": os.environ.get("DB_USER"),
+        "PASSWORD": os.environ.get("DB_PASSWORD"),
+        "HOST": os.environ.get("DB_HOST"),
+        "PORT": os.environ.get("DB_PORT"),
         "OPTIONS": {"charset": "utf8mb4"},
     }
 }
@@ -205,7 +183,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # Security (Production-ready defaults)
 # ----------------------------
 # NOTE: Some settings depend on HTTPS. Enable them when deploying with TLS.
-SECURE_SSL_REDIRECT = os.getenv("SECURE_SSL_REDIRECT", "0") == "1"
+SECURE_SSL_REDIRECT = os.environ.get("SECURE_SSL_REDIRECT") == "True"
 
 SESSION_COOKIE_HTTPONLY = True
 CSRF_COOKIE_HTTPONLY = False  # must be readable by JS if you use Fetch with CSRF cookie
@@ -316,29 +294,28 @@ CONTENT_SECURITY_POLICY = {
 # ----------------------------
 # SEO / Site config (editable)
 # ----------------------------
-SITE_NAME = CONFIG.get("SITE_NAME", "کارگاه سری‌دوزی")
-SITE_URL = os.getenv("SITE_URL", "http://127.0.0.1:8000").rstrip("/")
-SITE_DEFAULT_DESCRIPTION = CONFIG.get(
-    "SITE_DEFAULT_DESCRIPTION","ثبت سفارش سری‌دوزی، دریافت پیش‌فاکتور، پیگیری تولید و مدیریت سفارش‌های کارگاه."
-)
-SITE_DEFAULT_OG_IMAGE = os.getenv("SITE_DEFAULT_OG_IMAGE", "/static/img/og-default.jpg")
+
+SITE_NAME = "کارگاه سری‌دوزی"
+SITE_URL = os.environ.get("SITE_URL")
+SITE_DEFAULT_DESCRIPTION = "ثبت سفارش سری‌دوزی، دریافت پیش‌فاکتور، پیگیری تولید و مدیریت سفارش‌های کارگاه."
+SITE_DEFAULT_OG_IMAGE = os.environ.get("SITE_DEFAULT_OG_IMAGE")
 
 BUSINESS = {
     "name": SITE_NAME,
     "type": "LocalBusiness",
-    "telephone": os.getenv("BUSINESS_PHONE", ""),
-    "email": os.getenv("BUSINESS_EMAIL", ""),
+    "telephone": os.environ.get("BUSINESS_PHONE"),
+    "email": os.environ.get("BUSINESS_EMAIL"),
     "address": {
-        "streetAddress": os.getenv("BUSINESS_STREET", "تهرانپارس بلوار پروین خیابان 196شرقی خیابان 133جنوبی پلاک127"),
-        "addressLocality": os.getenv("BUSINESS_CITY", "تهران"),
-        "addressRegion": os.getenv("BUSINESS_REGION", "تهران"),
-        "postalCode": os.getenv("BUSINESS_POSTAL", ""),
-        "addressCountry": os.getenv("BUSINESS_COUNTRY", "IR"),
+        "streetAddress": "تهرانپارس بلوار پروین خیابان 196شرقی خیابان 133جنوبی پلاک127",
+        "addressLocality": "تهران",
+        "addressRegion": "تهران",
+        "postalCode": os.environ.get("BUSINESS_POSTAL"),
+        "addressCountry": os.environ.get("BUSINESS_COUNTRY"),
     },
-    "mapEmbedURL": os.getenv("BUSINESS_MAP_EMBED_URL", ""),
-    "WHATSAPP_URL": os.getenv("BUSINESS_WHATSAPP_URL", ""),
-    "TELEGRAM_URL": os.getenv("BUSINESS_TELEGRAM_URL", ""),
-    "INSTAGRAM_URL": os.getenv("BUSINESS_INSTAGRAM_URL", ""),
+    "mapEmbedURL": os.environ.get("BUSINESS_MAP_EMBED_URL"),
+    "WHATSAPP_URL": os.environ.get("BUSINESS_WHATSAPP_URL"),
+    "TELEGRAM_URL": os.environ.get("BUSINESS_TELEGRAM_URL"),
+    "INSTAGRAM_URL": os.environ.get("BUSINESS_INSTAGRAM_URL"),
     "sameAs": [],
 }
 
@@ -354,16 +331,16 @@ LOGGING = {
     "root": {"handlers": ["console"], "level": "INFO"},
 }
 
-ZARINPAL_MERCHANT_ID = os.getenv("ZARINPAL_MERCHANT_ID")
+ZARINPAL_MERCHANT_ID = os.environ.get("ZARINPAL_MERCHANT_ID")
 
-ZARINPAL_SANDBOX = os.getenv("ZARINPAL_SANDBOX", "True") == "True"
+ZARINPAL_SANDBOX = os.environ.get("ZARINPAL_SANDBOX") == "True"
 
 if ZARINPAL_SANDBOX:
-    ZARINPAL_REQUEST_URL = os.getenv("ZARINPAL_REQUEST_URL_SANDBOX")
-    ZARINPAL_VERIFY_URL = os.getenv("ZARINPAL_VERIFY_URL_SANDBOX")
-    ZARINPAL_STARTPAY_URL = os.getenv("ZARINPAL_STARTPAY_URL_SANDBOX")
+    ZARINPAL_REQUEST_URL = os.environ.get("ZARINPAL_REQUEST_URL_SANDBOX")
+    ZARINPAL_VERIFY_URL = os.environ.get("ZARINPAL_VERIFY_URL_SANDBOX")
+    ZARINPAL_STARTPAY_URL = os.environ.get("ZARINPAL_STARTPAY_URL_SANDBOX")
 else:
-    ZARINPAL_REQUEST_URL = os.getenv("ZARINPAL_REQUEST_URL")
-    ZARINPAL_VERIFY_URL = os.getenv("ZARINPAL_VERIFY_URL")
-    ZARINPAL_STARTPAY_URL = os.getenv("ZARINPAL_STARTPAY_URL")
+    ZARINPAL_REQUEST_URL = os.environ.get("ZARINPAL_REQUEST_URL")
+    ZARINPAL_VERIFY_URL = os.environ.get("ZARINPAL_VERIFY_URL")
+    ZARINPAL_STARTPAY_URL = os.environ.get("ZARINPAL_STARTPAY_URL")
 
