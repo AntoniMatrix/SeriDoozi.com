@@ -283,7 +283,7 @@ input:focus, textarea:focus, select:focus{
   position:absolute;
   inset:0;
   background:
-    linear-gradient(180deg, rgba(0,0,0,.22), rgba(0,0,0,.55)),
+    linear-gradient(180deg, rgba(0,0,0,.4), rgba(0,0,0,.7)),
     url("/static/img/hero.jpg");
   background-size: cover;
   background-position: center;
