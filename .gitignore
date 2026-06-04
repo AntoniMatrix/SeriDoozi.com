@@ -6,3 +6,7 @@ db.sqlite3
 info.evn
 media/
 staticfiles/
+settings.py
+seridoozi.sql
+db.sqlite3
+docker-compose.yml
