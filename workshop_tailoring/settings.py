@@ -10,12 +10,14 @@ Goals:
 
 from pathlib import Path
 import os
+from dotenv import load_dotenv
 import pymysql
 
 pymysql.install_as_MySQLdb()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+load_dotenv(BASE_DIR / ".env")
 
 # ----------------------------
 # Core
@@ -23,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "e(df#yn$beiv_0dz^rr(@h*%x)82!4d&um_#m(5c88q0+qeez2"
 DEBUG = os.environ.get("DEBUG") == "True"
 
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(",")
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS","127.0.0.1,localhost").split(",")
     
 # ----------------------------
 # Apps
