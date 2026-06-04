@@ -25,7 +25,7 @@ load_dotenv(BASE_DIR / ".env")
 SECRET_KEY = "e(df#yn$beiv_0dz^rr(@h*%x)82!4d&um_#m(5c88q0+qeez2"
 DEBUG = os.environ.get("DEBUG") == "True"
 
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS","127.0.0.1,localhost").split(",")
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(",")
     
 # ----------------------------
 # Apps
@@ -185,7 +185,6 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # Security (Production-ready defaults)
 # ----------------------------
 # NOTE: Some settings depend on HTTPS. Enable them when deploying with TLS.
-SECURE_SSL_REDIRECT = os.environ.get("SECURE_SSL_REDIRECT") == "True"
 
 SESSION_COOKIE_HTTPONLY = True
 CSRF_COOKIE_HTTPONLY = False  # must be readable by JS if you use Fetch with CSRF cookie
@@ -199,9 +198,9 @@ SESSION_COOKIE_SECURE = True
 SECURE_REFERRER_POLICY = "same-origin"
 # SSL
 
-SECURE_SSL_REDIRECT = True
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
+SECURE_SSL_REDIRECT = not DEBUG
+SESSION_COOKIE_SECURE = not DEBUG
+CSRF_COOKIE_SECURE = not DEBUG
 
 # Only set secure cookies when HTTPS is enabled
 SESSION_COOKIE_SECURE = not DEBUG and SECURE_SSL_REDIRECT

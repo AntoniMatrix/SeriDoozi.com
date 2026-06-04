@@ -331,7 +331,6 @@ input:focus, textarea:focus, select:focus{
 
 .hero .quick{
   display:grid;
-  grid-template-columns: 1fr 1fr;
   gap: 10px;
 }
 
