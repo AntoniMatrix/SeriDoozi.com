@@ -14,6 +14,11 @@ import pymysql
 
 pymysql.install_as_MySQLdb()
 
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
@@ -21,9 +26,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Core
 # ----------------------------
 SECRET_KEY = "e(df#yn$beiv_0dz^rr(@h*%x)82!4d&um_#m(5c88q0+qeez2"
-DEBUG = os.environ.get("DEBUG") == "True"
+DEBUG = os.getenv("DEBUG") == "True"
 
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(",")
+ALLOWED_HOSTS = ["127.0.0.1","localhost"]
     
 # ----------------------------
 # Apps
@@ -101,15 +106,15 @@ ASGI_APPLICATION = "workshop_tailoring.asgi.application"
 # ----------------------------
 # Database (MySQL)
 # ----------------------------
+
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.mysql",
-        "NAME": os.environ.get("DB_NAME"),
-        "USER": os.environ.get("DB_USER"),
-        "PASSWORD": os.environ.get("DB_PASSWORD"),
-        "HOST": os.environ.get("DB_HOST"),
-        "PORT": os.environ.get("DB_PORT"),
-        "OPTIONS": {"charset": "utf8mb4"},
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': os.getenv('DB_NAME'),
+        'USER': os.getenv('DB_USER'),
+        'PASSWORD': os.getenv('DB_PASSWORD'),
+        'HOST': os.getenv('DB_HOST'),  # چون کانتینر روی لوکال اجرا شده
+        'PORT': os.getenv('DB_PORT'),
     }
 }
 
@@ -183,7 +188,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # Security (Production-ready defaults)
 # ----------------------------
 # NOTE: Some settings depend on HTTPS. Enable them when deploying with TLS.
-SECURE_SSL_REDIRECT = os.environ.get("SECURE_SSL_REDIRECT") == "True"
+SECURE_SSL_REDIRECT = False
 
 SESSION_COOKIE_HTTPONLY = True
 CSRF_COOKIE_HTTPONLY = False  # must be readable by JS if you use Fetch with CSRF cookie
@@ -197,9 +202,9 @@ SESSION_COOKIE_SECURE = True
 SECURE_REFERRER_POLICY = "same-origin"
 # SSL
 
-SECURE_SSL_REDIRECT = True
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
+#SECURE_SSL_REDIRECT = True
+#SESSION_COOKIE_SECURE = True
+#CSRF_COOKIE_SECURE = True
 
 # Only set secure cookies when HTTPS is enabled
 SESSION_COOKIE_SECURE = not DEBUG and SECURE_SSL_REDIRECT
@@ -296,26 +301,26 @@ CONTENT_SECURITY_POLICY = {
 # ----------------------------
 
 SITE_NAME = "کارگاه سری‌دوزی"
-SITE_URL = os.environ.get("SITE_URL")
+SITE_URL = os.getenv("SITE_URL") 
 SITE_DEFAULT_DESCRIPTION = "ثبت سفارش سری‌دوزی، دریافت پیش‌فاکتور، پیگیری تولید و مدیریت سفارش‌های کارگاه."
-SITE_DEFAULT_OG_IMAGE = os.environ.get("SITE_DEFAULT_OG_IMAGE")
+SITE_DEFAULT_OG_IMAGE = os.getenv("SITE_DEFAULT_OG_IMAGE")
 
 BUSINESS = {
     "name": SITE_NAME,
     "type": "LocalBusiness",
-    "telephone": os.environ.get("BUSINESS_PHONE"),
-    "email": os.environ.get("BUSINESS_EMAIL"),
+    "telephone": os.getenv("BUSINESS_PHONE"),
+    "email": os.getenv("BUSINESS_EMAIL"),
     "address": {
         "streetAddress": "تهرانپارس بلوار پروین خیابان 196شرقی خیابان 133جنوبی پلاک127",
         "addressLocality": "تهران",
         "addressRegion": "تهران",
-        "postalCode": os.environ.get("BUSINESS_POSTAL"),
-        "addressCountry": os.environ.get("BUSINESS_COUNTRY"),
+        "postalCode": os.getenv("BUSINESS_POSTAL"),
+        "addressCountry": os.getenv("BUSINESS_COUNTRY"),
     },
-    "mapEmbedURL": os.environ.get("BUSINESS_MAP_EMBED_URL"),
-    "WHATSAPP_URL": os.environ.get("BUSINESS_WHATSAPP_URL"),
-    "TELEGRAM_URL": os.environ.get("BUSINESS_TELEGRAM_URL"),
-    "INSTAGRAM_URL": os.environ.get("BUSINESS_INSTAGRAM_URL"),
+    "mapEmbedURL": os.getenv("BUSINESS_MAP_EMBED_URL"),
+    "WHATSAPP_URL": os.getenv("BUSINESS_WHATSAPP_URL"),
+    "TELEGRAM_URL": os.getenv("BUSINESS_TELEGRAM_URL"),
+    "INSTAGRAM_URL": os.getenv("BUSINESS_INSTAGRAM_URL"),
     "sameAs": [],
 }
 
@@ -331,16 +336,16 @@ LOGGING = {
     "root": {"handlers": ["console"], "level": "INFO"},
 }
 
-ZARINPAL_MERCHANT_ID = os.environ.get("ZARINPAL_MERCHANT_ID")
+ZARINPAL_MERCHANT_ID = os.getenv("ZARINPAL_MERCHANT_ID")
 
-ZARINPAL_SANDBOX = os.environ.get("ZARINPAL_SANDBOX") == "True"
+ZARINPAL_SANDBOX = os.getenv("ZARINPAL_SANDBOX") == "True"
 
 if ZARINPAL_SANDBOX:
-    ZARINPAL_REQUEST_URL = os.environ.get("ZARINPAL_REQUEST_URL_SANDBOX")
-    ZARINPAL_VERIFY_URL = os.environ.get("ZARINPAL_VERIFY_URL_SANDBOX")
-    ZARINPAL_STARTPAY_URL = os.environ.get("ZARINPAL_STARTPAY_URL_SANDBOX")
+    ZARINPAL_REQUEST_URL = os.getenv("ZARINPAL_REQUEST_URL_SANDBOX")
+    ZARINPAL_VERIFY_URL = os.getenv("ZARINPAL_VERIFY_URL_SANDBOX")
+    ZARINPAL_STARTPAY_URL = os.getenv("ZARINPAL_STARTPAY_URL_SANDBOX")
 else:
-    ZARINPAL_REQUEST_URL = os.environ.get("ZARINPAL_REQUEST_URL")
-    ZARINPAL_VERIFY_URL = os.environ.get("ZARINPAL_VERIFY_URL")
-    ZARINPAL_STARTPAY_URL = os.environ.get("ZARINPAL_STARTPAY_URL")
+    ZARINPAL_REQUEST_URL = os.getenv("ZARINPAL_REQUEST_URL")
+    ZARINPAL_VERIFY_URL = os.getenv("ZARINPAL_VERIFY_URL")
+    ZARINPAL_STARTPAY_URL = os.getenv("ZARINPAL_STARTPAY_URL")
 
