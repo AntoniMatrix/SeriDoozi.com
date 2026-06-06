@@ -29,9 +29,9 @@
     <!-- هدر مقاله -->
     <header class="article-header">
        
-        {% if article.published_at %}
+        {% if article.created_at %}
         <div class="article-meta en-font">
-            <time datetime="{{ article.published_at|to_jalali }}">
+            <time datetime="{{ article.created_at|to_jalali }}">
                 {{ article.created_at|to_jalali }}
             </time>
         </div>

@@ -22,7 +22,7 @@ def article_detail(request, slug):
         slug=slug,
         status='published'
     )
-
+    
     content = article.content.replace('sandbox', '')
 
     return render(request, 'blog/article_detail.html', {
