@@ -30,10 +30,22 @@
     <header class="article-header">
        
         {% if article.created_at %}
-        <div class="article-meta en-font">
-            <time datetime="{{ article.created_at|to_jalali }}">
-                {{ article.created_at|to_jalali }}
-            </time>
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+            
+            <div class="article-meta en-font">
+                تاریخ مقاله:
+                <time datetime="{{ article.created_at|to_jalali }}">
+                    {{ article.created_at|to_jalali }}
+                </time>
+            </div>
+
+            <div class="article-meta en-font">
+                آخرین بروزرسانی:
+                <time datetime="{{ article.created_at|to_jalali }}">
+                    {{ article.created_at|to_jalali }}
+                </time>
+            </div>
+
         </div>
         {% endif %}
 
