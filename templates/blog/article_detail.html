@@ -28,25 +28,15 @@
 
     <!-- هدر مقاله -->
     <header class="article-header">
-        <h1 class="article-title">
-            {{ article.title }}
-        </h1>
-
+       
         {% if article.published_at %}
         <div class="article-meta en-font">
             <time datetime="{{ article.published_at|to_jalali }}">
-                {{ article.published_at|to_jalali }}
+                {{ article.created_at|to_jalali }}
             </time>
         </div>
         {% endif %}
 
-        {% if article.thumbnail %}
-        <figure class="article-thumbnail">
-            <img src="/static/img/{{ article.thumbnail }}"
-                 alt="{{ article.title }}"
-                 loading="eager">
-        </figure>
-        {% endif %}
     </header>
 
     <!-- محتوای مقاله -->
