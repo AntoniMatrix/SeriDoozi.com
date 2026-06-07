@@ -270,7 +270,7 @@ def gallery(request):
         # تعریف فایل‌ها و فرمت‌های مجاز
         files_config = {
             'LOGO': {'filename': 'LOGO.png', 'format': 'PNG'},
-            'hero': {'filename': 'hero.jpg', 'format': 'JPEG'},
+            'hero': {'filename': 'hero.webp', 'format': 'WEBP'},
             'article': {'filename': 'default-article.jpg', 'format': 'JPEG'},
             'OG': {'filename': 'og-default.jpg', 'format': 'JPEG'},
         }
