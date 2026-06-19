@@ -271,6 +271,13 @@ CONTENT_SECURITY_POLICY = {
             "https://*.enamad.ir/",
         ),
 
+        "media-src": (
+            "'self'",
+            "blob:",
+            "data:",
+            "https://cdn.jsdelivr.net",
+        ),
+
         "font-src": ("'self'", "data:", "https://cdn.jsdelivr.net"),
 
         "connect-src": ("'self'", "https://cdn.jsdelivr.net"),
