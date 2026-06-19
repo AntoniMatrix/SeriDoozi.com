@@ -2,10 +2,8 @@ venv/
 __pycache__/
 *.pyc
 db.sqlite3
-.env
-info.evn
+*.env
 media/
 staticfiles/
-settings.py
-seridoozi.sql
-docker-compose.yml
+*.sql
+*.yml
