@@ -55,7 +55,7 @@ class InvoiceItemInline(admin.TabularInline):
 # =========================
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ('id', 'title', 'customer', 'status', 'assigned_to', 'deadline', 'created_at')
+    list_display = ('id', 'title', 'customer', 'status', 'stage_num', 'deadline', 'created_at')
     list_filter = ('status', 'fabric_by_workshop', 'materials_by_workshop')
     search_fields = ('title', 'customer__username', 'customer__email')
     readonly_fields = ('created_at', 'updated_at')
@@ -64,7 +64,7 @@ class OrderAdmin(admin.ModelAdmin):
 
     fieldsets = (
         ('اطلاعات اصلی', {
-            'fields': ('title', 'customer', 'status', 'assigned_to')
+            'fields': ('title', 'customer', 'status', 'stage_num')
         }),
         ('تنظیمات', {
             'fields': ('fabric_by_workshop', 'materials_by_workshop', 'deadline')

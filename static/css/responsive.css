@@ -116,6 +116,12 @@
     width: 100%;
 }
 
+.cert{
+    flex-direction: row !important;
+    justify-content: space-evenly !important;
+    height: 130px !important;
+}
+
 /* ========== Hero Section ========== */
 @media (max-width: 980px) {
   .hero-content {

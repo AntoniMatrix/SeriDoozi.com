@@ -37,6 +37,15 @@ def home(request):
             .order_by("-created_at")[:10]
         )
 
+        latest_order = (
+        Order.objects
+        .exclude(status=OrderStatus.NEW)
+        .prefetch_related("items")
+        .annotate(total_qty=Sum("items__quantity"))
+        .order_by("-created_at")
+        .first()
+        )
+
         # اسلایدهای واقعی
         slides = [
             {
@@ -68,7 +77,7 @@ def home(request):
             "qty": 120,
         } for i in range(10)]
 
-    return render(request, "home.html", {"slides": slides})
+    return render(request, "home.html", {"slides": slides, "latest_order": latest_order})
 
 @require_GET
 def about(request):

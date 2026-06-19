@@ -382,6 +382,20 @@ def payment_verify(request):
             order.status = OrderStatus.QUOTED
             order.save(update_fields=["status"])
         
+        match payment.stage:
+            case "FULL":
+                order.stage_num = 1
+            case "CUTTING":
+                order.stage_num = 2
+            case "SEWING":
+                order.stage_num = 3
+            case "IRONING":
+                order.stage_num = 4
+            case "READY":
+                order.stage_num = 5
+
+        order.save(update_fields=["stage_num"])
+
         return redirect('orders:detail', order_id=payment.order_id)
 
     return redirect('orders:detail', order_id=payment.order_id)
