@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth import get_user_model
 from django.utils.translation import gettext_lazy as _
 from django.db.models import TextChoices
-from django.core.validators import FileExtensionValidator
+from django.core.validators import FileExtensionValidator, MinValueValidator, MaxValueValidator
 
 User = get_user_model()
 
@@ -51,14 +51,10 @@ class Order(models.Model):
 
     materials_by_workshop = models.BooleanField(default=False)
 
-
-    assigned_to = models.ForeignKey(
-        User,
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True,
-        related_name="assigned_orders",
-    )
+    stage_num = models.DecimalField(default=0, max_digits=1, decimal_places=0, validators=[
+        MinValueValidator(0),
+        MaxValueValidator(5),
+    ])
 
     deadline = models.DateField(null=True, blank=True)
 

@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
 
   <!-- SEO -->
-  <title>{% block meta_title %}{{ SITE_NAME }}{% endblock %}</title>
+  <title>{% block meta_title %} {{ SITE_NAME }} {% endblock %}</title>
   <link rel="icon" type="image/png" href="{% static 'img/LOGO.png' %}">
   <meta name="description" content="{% block meta_description %}{{ SITE_DEFAULT_DESCRIPTION }}{% endblock %}"/>
   <meta name="robots" content="{% block meta_robots %}index,follow{% endblock %}"/>
@@ -23,6 +23,7 @@
   <link rel="stylesheet" href="{% static 'vendor/bootstrap-icons/bootstrap-icons.css' %}">
   <link rel="stylesheet" href="{% static 'css/jalalidatepicker.min.css' %}">
   
+  {% block style %}{% endblock %}
   
 </head>
 
@@ -188,14 +189,6 @@
           سیستم ثبت سفارش سری‌دوزی — شفاف، مرحله‌ای و مناسب همکاری با مزون‌ها و برندهای پوشاک.
         </p>
 
-        <div class="footer-cta">
-          {% if user.is_authenticated %}
-            <a class="btn" href="/orders/"><i class="bi bi-box-seam"></i> سفارش‌ها</a>
-          {% else %}
-            <a class="btn" href="/accounts/register/"><i class="bi bi-rocket-takeoff"></i> شروع همکاری</a>
-            <a class="btn secondary" href="/accounts/login/"><i class="bi bi-person-lock"></i> ورود</a>
-          {% endif %}
-        </div>
       </div>
 
       <div class="footer-cols">
@@ -254,7 +247,7 @@
         {% if not request.user.is_staff %}
         <div class="footer-col">
           <h4>مجوز‌ها</h4>
-            <ul style="display:flex; align-items: center; justify-content: space-between; height: 276px;flex-direction: column;">
+            <ul class="cert" style="display:flex; align-items: center; justify-content: space-between; height: 276px;flex-direction: column;">
               <li>
                   <a referrerpolicy='origin' target='_blank' href='https://trustseal.enamad.ir/?id=723532&Code=AaZoRNgQmEYfn5l7NwiXysWOXROoewWT'><img loading="lazy" referrerpolicy='origin' src='https://trustseal.enamad.ir/logo.aspx?id=723532&Code=AaZoRNgQmEYfn5l7NwiXysWOXROoewWT' alt='' style='cursor:pointer' code='AaZoRNgQmEYfn5l7NwiXysWOXROoewWT'></a>
               </li>
@@ -281,7 +274,8 @@
   </div>
 </footer>
 
- <div class="footer-bottom" style="position: sticky; bottom: 0px; background: linear-gradient(135deg, var(--accent), var(--accent-2)); right: 0px; left: 0px; padding: 10px 10px; border: #000 solid 2px; align-items: center; display: flex; justify-content: space-between; line-height: 1;">
+<!--
+   <div class="footer-bottom" style="position: sticky; bottom: 0px; background: linear-gradient(135deg, var(--accent), var(--accent-2)); right: 0px; left: 0px; padding: 10px 10px; border: #000 solid 2px; align-items: center; display: flex; justify-content: space-between; line-height: 1;">
     
     <div class="mobile" style="display: flex; justify-content: space-between; align-items: center; width: 100%; color: #000; font-size: 16px;">
       <b class="en-font mobile">طراحی سایت با قیمت مناسب: </b>
@@ -300,6 +294,8 @@
     </div>
 
   </div>
+-->
+
 
   <!-- Schema.org -->
   <script type="application/ld+json">

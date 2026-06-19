@@ -1,232 +1,454 @@
-{% extends "base.html" %}
-{% load jalali_tags %}
+{% extends "base.html" %} {% load jalali_tags %} {% block meta_title %}{{
+SITE_NAME }}{% endblock %} {% block style %}
+<link rel="stylesheet" href="/static/css/home-styles.css" />
+{% endblock %} {% block content %}
 
-{% block meta_title %}{{ SITE_NAME }}{% endblock %}
-
-{% block content %}
 <section class="container">
   <div class="panel hero">
     <div class="hero-bg"></div>
-
     <div class="hero-content">
       <div class="info">
-        <h1>سامانه سری دوزی و تولید عمده پوشاک</h1>
+        <h1>
+          سامانه <span>سری دوزی</span> و
+          <br />
+          <span>تولید عمده</span> پوشاک
+        </h1>
         <p class="muted">
-          صنعت پوشاک امروز بیش از هر زمان دیگری به سرعت، دقت و شفافیت نیاز دارد. مدیریت سفارش‌های عمده، هماهنگی بین بخش‌های مختلف تولید و اطلاع‌رسانی مستمر به مشتریان، چالش‌هایی هستند که بسیاری از کارگاه‌ها و تولیدی‌های پوشاک با آن روبه‌رو هستند. سامانه سری دوزی با هدف ساده‌سازی و هوشمندسازی این فرآیندها طراحی شده است تا تمام مراحل تولید پوشاک، از ثبت سفارش اولیه تا تحویل نهایی، در یک محیط یکپارچه مدیریت شود.
+          با استفاده از اتوماسیون تولید پوشاک، مدیریت سفارش‌ها، کنترل کیفیت،
+          ارسال نمونه، تأیید مراحل تولید و تحویل نهایی با سرعت و دقت بیشتری
+          انجام می‌شود. این سیستم به تولیدی‌ها کمک می‌کند تا ظرفیت تولید خود را
+          بهتر مدیریت کرده و پاسخگوی حجم بیشتری از سفارش‌های عمده باشند.
         </p>
-        <br>
-        <p class="muted">
-          سامانه مدیریت سری دوزی امکان ثبت سفارش‌های عمده در حوزه‌های مختلف از جمله تولید لباس کار، تیشرت، هودی، مانتو، شلوار، لباس فرم سازمانی و سایر محصولات پوشاک را فراهم می‌کند. تمامی اطلاعات مربوط به سفارش، تعداد، سایزبندی، مشخصات پارچه، زمان‌بندی تولید و وضعیت تحویل در یک بستر متمرکز نگهداری می‌شود تا احتمال خطا و دوباره‌کاری به حداقل برسد.
-        </p>
-        <br>
-        <p class="muted">
-          با استفاده از اتوماسیون تولید پوشاک، مدیریت سفارش‌ها، کنترل کیفیت، ارسال نمونه، تأیید مراحل تولید و تحویل نهایی با سرعت و دقت بیشتری انجام می‌شود. این سیستم به تولیدی‌ها کمک می‌کند تا ظرفیت تولید خود را بهتر مدیریت کرده و پاسخگوی حجم بیشتری از سفارش‌های عمده باشند.
-        </p>
-
         <div class="actions">
-          {% if user.is_authenticated %}
-            {% if user.is_superuser or user.groups.exists %}
-              <a class="btn secondary" href="/panel/">پنل مدیریت</a>
-            {% else %}
-              <a class="btn" href="/orders/">ثبت/پیگیری سفارش</a>
-            {% endif %}
+          {% if user.is_authenticated %} 
+          {% if user.is_superuser or user.groups.exists %}
+          <a class="btn secondary ext-auto-1" href="/panel/">پنل مدیریت</a>
           {% else %}
-            <a class="btn" href="/accounts/register/">شروع همکاری</a>
-            <a class="btn secondary" href="/accounts/login/">ورود مشتری</a>
+          <a class="btn ext-auto-2" href="/orders/create/">ثبت سفارش</a>
+          <a class="btn secondary ext-auto-3" href="/orders/">پیگیری سفارشات</a>
+          {% endif %} 
+          {% else %}
+          <div class="ext-auto-4">
+            <a class="btn ext-auto-5" href="/accounts/register/">شروع همکاری</a>
+            <a class="btn secondary ext-auto-6" href="/accounts/login/"
+              >ورود به حساب</a
+            >
+          </div>
           {% endif %}
-          <a class="btn ghost" href="#services">مشاهده خدمات</a>
-        </div>
-      </div>
-
-      <div class="quick">
-        <div class="q">
-          <div class="badge">ورود سریع</div>
-          <div style="margin-top:8px" class="muted">ثبت سفارش مرحله‌ای</div>
-          <div class="small">بدون تماس‌های طولانی</div>
-        </div>
-        <div class="q">
-          <div class="badge">شفافیت</div>
-          <div style="margin-top:8px" class="muted">پیش‌فاکتور و قیمت‌گذاری</div>
-          <div class="small">قابل پیگیری در پنل</div>
-        </div>
-        <div class="q">
-          <div class="badge">کنترل کیفیت</div>
-          <div style="margin-top:8px" class="muted">ارسال نمونه و فایل</div>
-          <div class="small">ضمیمه داخل سفارش</div>
-        </div>
-        <div class="q">
-          <div class="badge">تحویل</div>
-          <div style="margin-top:8px" class="muted">زمان‌بندی تولید</div>
-          <div class="small">وضعیت لحظه‌ای</div>
         </div>
       </div>
     </div>
   </div>
-
-  <div id="services" class="section-title">
-    <h2>سری دوزی پوشاک چیست؟</h2>
-    <div class="line"></div>
+  <div>
+    <h2 class="ext-auto-7">سری دوزی پوشاک چیست؟</h2>
+    <input type="checkbox" checked id="toggle" hidden />
+    <p class="ext-auto-8 text">
+      سری‌دوزی پوشاک روشی برای تولید لباس در تعداد بالا و با کیفیت یکسان است. در
+      این فرآیند، لباس‌ها به‌جای دوخت تکی، به‌صورت عمده و طبق یک الگوی مشخص
+      تولید می‌شوند تا سرعت
+      <br />
+      کار افزایش پیدا کند و هزینه‌ها کاهش یابد. این روش برای برندهای پوشاک،
+      فروشگاه‌ها، شرکت‌ها و مجموعه‌هایی که به تعداد زیادی لباس نیاز دارند، بسیار
+      کاربردی است
+      <br />
+      در سری‌دوزی، تمام مراحل از برش پارچه و دوخت گرفته تا کنترل کیفیت و
+      بسته‌بندی به‌صورت برنامه‌ریزی‌شده انجام می‌شود
+      <br />
+      همین موضوع باعث می‌شود سفارش‌ها در زمان کوتاه‌تر، با دقت بیشتر و کیفیتی
+      یکنواخت به دست مشتری برسند
+    </p>
+    <label for="toggle" class="read-more"></label>
   </div>
-
-  <div class="grid1" style="margin-bottom: 15px;">
-    <div class="card">
-      <p>سری‌دوزی پوشاک روشی برای تولید لباس در تعداد بالا و با کیفیت یکسان است. در این فرآیند، لباس‌ها به‌جای دوخت تکی، به‌صورت عمده و طبق یک الگوی مشخص تولید می‌شوند تا سرعت کار افزایش پیدا کند و هزینه‌ها کاهش یابد. این روش برای برندهای پوشاک، فروشگاه‌ها، شرکت‌ها و مجموعه‌هایی که به تعداد زیادی لباس نیاز دارند، بسیار کاربردی است. در سری‌دوزی، تمام مراحل از برش پارچه و دوخت گرفته تا کنترل کیفیت و بسته‌بندی به‌صورت برنامه‌ریزی‌شده انجام می‌شود. همین موضوع باعث می‌شود سفارش‌ها در زمان کوتاه‌تر، با دقت بیشتر و کیفیتی یکنواخت به دست مشتری برسند.</p>
+  <div class="ext-auto-9">
+    <div class="ext-auto-10">
+      <div>
+        <div class="ext-auto-11">
+          <div class="card ext-auto-12">
+            <div class="feature">
+              <div class="ico">
+                <i class="bi bi-scissors"></i>
+              </div>
+              <div>
+                <h3>برش و آماده‌سازی</h3>
+                <p>
+                  ثبت جزئیات سایزبندی، نوع پارچه، تعداد و توضیحات برای کاهش خطا.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="card ext-auto-13">
+            <div class="feature">
+              <div class="ico">
+                <i class="bi bi-gear"></i>
+              </div>
+              <div>
+                <h3>سری‌دوزی صنعتی</h3>
+                <p>ثبت سفارش‌های عمده با مدیریت وضعیت تولید مرحله‌به‌مرحله.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="ext-auto-14">
+          <div class="card ext-auto-15">
+            <div class="feature">
+              <div class="ico">
+                <i class="bi bi-building-gear"></i>
+              </div>
+              <div>
+                <h3>الگو و فایل</h3>
+                <p>
+                  آپلود فایل‌ها/نمونه‌ها داخل سفارش و کنترل دسترسی برای امنیت.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="card ext-auto-16">
+            <div class="feature">
+              <div class="ico">
+                <i class="bi bi-paperclip"></i>
+              </div>
+              <div>
+                <h3>تحویل و فاکتور</h3>
+                <p>
+                  ثبت پیش‌فاکتور، بیعانه و گزارش‌های مالی با دسترسی نقش‌محور.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h2 class="ext-auto-17">خدمات سری دوزی پوشاک</h2>
+      </div>
     </div>
-  </div>
-
-  <div id="services" class="section-title">
-    <h2>خدمات سری دوزی پوشاک</h2>
-    <div class="line"></div>
-    <div class="small">سفارش‌محور</div>
-  </div>
-
-  <div class="grid2">
-    <div class="card">
-      <div class="feature">
-        <div class="ico">
-          <i class="bi bi-scissors"></i>
+    {% if latest_order %}
+      <div class="ext-auto-18">
+        <b class="en-font ext-auto-19">سفارش #{{ latest_order.id }}</b>
+        <div class="ext-auto-20">
+          <h3>عنوان: {{ latest_order.title }}</h3>
+          <p class="en-font">تعداد: {{ latest_order.total_qty }}</p>
         </div>
         <div>
-          <h3>برش و آماده‌سازی</h3>
-          <p>ثبت جزئیات سایزبندی، نوع پارچه، تعداد و توضیحات برای کاهش خطا.</p>
+          {% if latest_order.materials_by_workshop or latest_order.fabric_by_workshop %}
+            <div class="ext-auto-21">
+              <i class="bi {% if latest_order.stage_num > 0 %}bi-check-circle ext-auto-22{% else %}bi-circle-fill ext-auto-26{% endif %}"></i>
+              تهیه پارچه و متریال
+            </div>
+          {% endif %}
+          <div class="ext-auto-21">
+            {% if latest_order.materials_by_workshop or latest_order.fabric_by_workshop %}
+            <i class="bi {% if latest_order.stage_num > 1 %}bi-check-circle ext-auto-22{% elif latest_order.stage_num == 1 %}bi-circle-fill ext-auto-26{% else %}bi-record-circle ext-auto-28{% endif %}"></i>
+            {% else %}
+            <i class="bi {% if latest_order.stage_num > 1 %}bi-check-circle ext-auto-22{% elif latest_order.stage_num <= 1 %}bi-circle-fill ext-auto-26{% else %}bi-record-circle ext-auto-28{% endif %}"></i>
+            {% endif %}
+            برش
+          </div>
+          <div class="ext-auto-23">
+            <i class="bi {% if latest_order.stage_num > 2 %}bi-check-circle ext-auto-22{% elif latest_order.stage_num == 2 %}bi-circle-fill ext-auto-26{% else %}bi-record-circle ext-auto-28{% endif %}"></i>
+            دوخت
+          </div>
+          <div class="ext-auto-25">
+            <i class="bi {% if latest_order.stage_num > 3 %}bi-check-circle ext-auto-22{% elif latest_order.stage_num == 3 %}bi-circle-fill ext-auto-26{% else %}bi-record-circle ext-auto-28{% endif %}"></i>
+            کنترل کیفیت
+          </div>
+          <div class="ext-auto-27">
+            <i class="bi {% if latest_order.stage_num > 4 %}bi-check-circle ext-auto-22{% elif latest_order.stage_num == 4 %}bi-circle-fill ext-auto-26{% else %}bi-record-circle ext-auto-28{% endif %}"></i>
+            تحویل
+          </div>
+        </div>
+      </div>
+    {% endif %}
+  </div>
+
+  <div>
+    <h2 class="ext-auto-17 mobile ext-auto-7">خدمات سری دوزی پوشاک</h2>
+    <input type="checkbox" checked id="service-toggle" hidden />
+    <p class="ext-auto-8 text">
+      خدمات سری‌دوزی پوشاک شامل تمام مراحل مورد نیاز برای تولید حرفه‌ای لباس، از
+      دریافت سفارش تا تحویل نهایی است. این خدمات معمولاً شامل طراحی و الگو‌سازی،
+      برش پارچه، دوخت صنعتی، کنترل کیفیت، اتوکاری، بسته‌بندی و آماده‌سازی
+      <br />
+      برای ارسال می‌شود. هدف از سری‌دوزی، تولید لباس با کیفیت یکسان در تعداد
+      بالا و در زمان مناسب است. فرقی نمی‌کند سفارش شما مربوط به تیشرت، هودی،
+      مانتو، لباس کار یا پوشاک سازمانی باشد؛ با استفاده از خدمات سری‌دوزی
+      <br />
+      می‌توان محصولات را با دقت بیشتر، هزینه مناسب‌تر و سرعت بالاتر تولید کرد و
+      به بازار عرضه نمود.
+    </p>
+    <label for="service-toggle" class="read-more"></label>
+  </div>
+
+  <div class="card PC">
+    <h3>مراحلی که سفارش سری‌دوزی شما طی میکند</h3>
+    <img alt="Roadmap" src="/static/img/Orders Roadmap.webp" />
+    <div class="ext-auto-29">
+      <div class="ext-auto-30">
+        <h4 class="ext-auto-31">ثبت سفارش</h4>
+        <p class="ext-auto-32">
+          شما داخل سایت سفارش
+          <br />
+          ثبت میکنید
+        </p>
+      </div>
+      <div class="ext-auto-33">
+        <h4 class="ext-auto-34">بررسی</h4>
+        <p class="ext-auto-35">
+          ادمین ها سفارش شما رو
+          <br />
+          بررسی میکنند
+        </p>
+      </div>
+      <div class="ext-auto-36">
+        <h4 class="ext-auto-37">ارسال نمونه</h4>
+        <p class="ext-auto-38">
+          اولین نمونه تولید شده
+          <br />
+          تحویل شما میشود
+        </p>
+      </div>
+      <div class="ext-auto-39">
+        <h4 class="ext-auto-40">تولید انبوه</h4>
+        <p class="ext-auto-41">
+          سفارش درحال تولید
+          <br />
+          و سری دوزی است
+        </p>
+      </div>
+      <div class="ext-auto-42">
+        <h4 class="ext-auto-43">کنترل کیفیت</h4>
+        <p class="ext-auto-44">
+          تمامی لباس ها تک‌به‌تک
+          <br />
+          کنترل کیفیت میشود
+        </p>
+      </div>
+      <div class="ext-auto-45">
+        <h4 class="ext-auto-46">ارسال و تحویل</h4>
+        <p class="ext-auto-47">
+          سفارش شما اماده تحویل
+          <br />
+          است و ارسال میشود
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="order-process-section mobile">
+
+  <div class="order-process-header">
+    <h2 class="order-process-title">ثبت سفارش <span class="highlight">چگونه</span> انجام می‌شود؟</h2>
+    <p class="order-process-subtitle">مراحل ثبت سفارش تا تحویل، به صورت شفاف و سریع</p>
+  </div>
+
+  <div class="order-steps-wrapper">
+
+    <!-- Step 1 -->
+    <div class="order-step">
+      <div class="step-number-col">
+        <div class="step-number">۱</div>
+        <div class="step-line"></div>
+      </div>
+      <div class="step-card">
+        <div class="step-icon-wrap">
+          <i class="bi bi-file-earmark-text"></i>
+        </div>
+        <div class="step-content">
+          <h3 class="step-title">ثبت سفارش</h3>
+          <p class="step-desc">ثبت مشخصات سفارش، انتخاب محصول و ارسال فایل‌ها</p>
         </div>
       </div>
     </div>
 
-    <div class="card">
-      <div class="feature">
-        <div class="ico">
+    <!-- Step 2 -->
+    <div class="order-step">
+      <div class="step-number-col">
+        <div class="step-number">۲</div>
+        <div class="step-line"></div>
+      </div>
+      <div class="step-card">
+        <div class="step-icon-wrap">
+          <i class="bi bi-search"></i>
+        </div>
+        <div class="step-content">
+          <h3 class="step-title">بررسی</h3>
+          <p class="step-desc">بررسی اطلاعات سفارش، چک جزئیات و هماهنگی‌های اولیه</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 3 -->
+    <div class="order-step">
+      <div class="step-number-col">
+        <div class="step-number">۳</div>
+        <div class="step-line"></div>
+      </div>
+      <div class="step-card">
+        <div class="step-icon-wrap">
+          <i class="bi bi-send"></i>
+        </div>
+        <div class="step-content">
+          <h3 class="step-title">ارسال نمونه</h3>
+          <p class="step-desc">تولید نمونه اولیه و ارسال برای تایید و اطمینان خاطر شما</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 4 -->
+    <div class="order-step">
+      <div class="step-number-col">
+        <div class="step-number">۴</div>
+        <div class="step-line"></div>
+      </div>
+      <div class="step-card">
+        <div class="step-icon-wrap">
           <i class="bi bi-gear"></i>
         </div>
-        <div>
-          <h3>سری‌دوزی صنعتی</h3>
-          <p>ثبت سفارش‌های عمده با مدیریت وضعیت تولید مرحله‌به‌مرحله.</p>
+        <div class="step-content">
+          <h3 class="step-title">تولید</h3>
+          <p class="step-desc">شروع فرآیند تولید بعد از تایید نمونه با بهترین مواد و تجهیزات</p>
         </div>
       </div>
     </div>
 
-    <div class="card">
-      <div class="feature">
-        <div class="ico">
-          <i class="bi bi-building-gear"></i>
+    <!-- Step 5 -->
+    <div class="order-step">
+      <div class="step-number-col">
+        <div class="step-number">۵</div>
+        <div class="step-line"></div>
+      </div>
+      <div class="step-card">
+        <div class="step-icon-wrap">
+          <i class="bi bi-shield-check"></i>
         </div>
-        <div>
-          <h3>الگو و فایل</h3>
-          <p>آپلود فایل‌ها/نمونه‌ها داخل سفارش و کنترل دسترسی برای امنیت.</p>
+        <div class="step-content">
+          <h3 class="step-title">کنترل کیفیت</h3>
+          <p class="step-desc">بررسی و کنترل کیفیت در تمام مراحل تولید برای تضمین کیفیت نهایی</p>
         </div>
       </div>
     </div>
 
-    <div class="card">
-      <div class="feature">
-        <div class="ico">
-          <i class="bi bi-paperclip"></i>
+    <!-- Step 6 - Last (no line) -->
+    <div class="order-step last-step">
+      <div class="step-number-col">
+        <div class="step-number">۶</div>
+      </div>
+      <div class="step-card">
+        <div class="step-icon-wrap">
+          <i class="bi bi-truck"></i>
         </div>
-        <div>
-          <h3>تحویل و فاکتور</h3>
-          <p>ثبت پیش‌فاکتور، بیعانه و گزارش‌های مالی با دسترسی نقش‌محور.</p>
+        <div class="step-content">
+          <h3 class="step-title">تحویل</h3>
+          <p class="step-desc">بسته‌بندی و ارسال سفارش در زمان مقررشده به آدرس شما</p>
         </div>
       </div>
     </div>
+
+  </div>
   </div>
 
-  <div class="card" style="margin-top: 15px;">خدمات سری‌دوزی پوشاک شامل تمام مراحل مورد نیاز برای تولید حرفه‌ای لباس، از دریافت سفارش تا تحویل نهایی است. این خدمات معمولاً شامل طراحی و الگو‌سازی، برش پارچه، دوخت صنعتی، کنترل کیفیت، اتوکاری، بسته‌بندی و آماده‌سازی برای ارسال می‌شود. هدف از سری‌دوزی، تولید لباس با کیفیت یکسان در تعداد بالا و در زمان مناسب است. فرقی نمی‌کند سفارش شما مربوط به تیشرت، هودی، مانتو، لباس کار یا پوشاک سازمانی باشد؛ با استفاده از خدمات سری‌دوزی می‌توان محصولات را با دقت بیشتر، هزینه مناسب‌تر و سرعت بالاتر تولید کرد و به بازار عرضه نمود.</div>
-
+  <div class="ext-auto-48">
+    <h2 class="ext-auto-49">مزایای استفاده از سامانه سری دوزی</h2>
+    <input type="checkbox" checked id="benefits-toggle" hidden />
+    <p class="ext-auto-50 ext-auto-8 text">
+      استفاده از سامانه سری‌دوزی باعث می‌شود مدیریت سفارش‌های تولید پوشاک
+      ساده‌تر، سریع‌تر و دقیق‌تر انجام شود. با کمک این سامانه، تمامی مراحل از
+      ثبت سفارش و ارسال اطلاعات تا پیگیری وضعیت تولید و تحویل نهایی در یک بستر
+      واحد قابل مشاهده است. این شفافیت به کاهش خطاهای انسانی، جلوگیری از
+      دوباره‌کاری و بهبود ارتباط بین مشتری و تولیدکننده کمک می‌کند. همچنین
+      مدیران کارگاه می‌توانند روند تولید را بهتر کنترل کرده و برنامه‌ریزی
+      دقیق‌تری برای سفارش‌ها داشته باشند. نتیجه این فرآیند، افزایش بهره‌وری،
+      صرفه‌جویی در زمان و ارائه خدمات حرفه‌ای‌تر به مشتریان خواهد بود.
+    </p>
+    <label for="benefits-toggle" class="read-more"></label>
+  </div>
   <div class="section-title">
-    <h2>نمونه سفارش‌ها و پروژه‌ها</h2>
-    <div class="line"></div>
-    <div class="small">۱۰ سفارش آخر</div>
+    <h2 class="ext-auto-51">آخرین سفارش‌ها و پروژه‌ها</h2>
   </div>
-
-  <div class="orders-marquee" aria-label="آخرین سفارش‌ها">
+  <div aria-label="آخرین سفارش‌ها" class="orders-marquee">
     <div class="marquee-track">
-      {# بار اول #}
-      {% for s in slides %}
-        {% if s.kind == "order" %}
-          <div class="marquee-slide card soft">
-            <div class="row" style="justify-content:space-between; gap:10px;">
-              <div class="badge en-font">سفارش #{{ s.obj.id }}</div>
-              <div class="muted small">{{ s.obj.get_status_display }}</div>
-            </div>
-
-            <h3 style="margin:10px 0 6px">{{ s.obj.title }}</h3>
-
-            <div class="muted en-font">
-              تعداد کل: {% if s.obj.total_qty %}{{ s.obj.total_qty }}{% else %}0{% endif %}
-              {% if s.obj.deadline %} • ددلاین: {{ s.obj.deadline|to_jalali }}{% endif %}
-            </div>
-
-            <div class="small muted en-font" style="margin-top:10px">
-              {{ s.obj.created_at|to_jalali }}
-            </div>
-          </div>
-        {% else %}
-        {% endif %}
-      {% endfor %}
-
+      {# بار اول #} {% for s in slides %} {% if s.kind == "order" %}
+      <div class="marquee-slide card soft">
+        <div class="row ext-auto-52">
+          <div class="badge en-font">سفارش #{{ s.obj.id }}</div>
+          <div class="muted small">{{ s.obj.get_status_display }}</div>
+        </div>
+        <h3 class="ext-auto-53">{{ s.obj.title }}</h3>
+        <div class="muted en-font">
+          تعداد کل: {% if s.obj.total_qty %}{{ s.obj.total_qty }}{% else %}0{% endif %} 
+          {% if s.obj.deadline %} • ددلاین: {{ s.obj.deadline|to_jalali }}
+          {% endif %}
+        </div>
+        <div class="small muted en-font ext-auto-54">
+          {{ s.obj.created_at|to_jalali }}
+        </div>
+      </div>
+      {% else %} 
+      {% endif %} 
+      {% endfor %} 
       {# بار دوم (کپی برای لوپ بدون پرش) #}
-      {% for s in slides %}
-        {% if s.kind == "order" %}
-          <div class="marquee-slide card soft" aria-hidden="true">
-            <div class="row" style="justify-content:space-between; gap:10px;">
-              <div class="badge en-font">سفارش #{{ s.obj.id }}</div>
-              <div class="muted small">{{ s.obj.get_status_display }}</div>
-            </div>
-
-            <h3 style="margin:10px 0 6px">{{ s.obj.title }}</h3>
-
-            <div class="muted en-font">
-              تعداد کل: {% if s.obj.total_qty %}{{ s.obj.total_qty }}{% else %}0{% endif %}
-              {% if s.obj.deadline %} • ددلاین: {{ s.obj.deadline|to_jalali }}{% endif %}
-            </div>
-
-            <div class="small muted en-font" style="margin-top:10px">
-              {{ s.obj.created_at|to_jalali }}
-            </div>
-          </div>
-        {% endif %}
+      {% for s in slides %} {% if s.kind == "order" %}
+      <div aria-hidden="true" class="marquee-slide card soft">
+        <div class="row ext-auto-55">
+          <div class="badge en-font">سفارش #{{ s.obj.id }}</div>
+          <div class="muted small">{{ s.obj.get_status_display }}</div>
+        </div>
+        <h3 class="ext-auto-56">{{ s.obj.title }}</h3>
+        <div class="muted en-font">
+          تعداد کل: {% if s.obj.total_qty %}{{ s.obj.total_qty }}{% else %}0{% endif %} {% if s.obj.deadline %} • ددلاین: {{ s.obj.deadline|to_jalali }}{% endif %}
+        </div>
+        <div class="small muted en-font ext-auto-57">
+          {{ s.obj.created_at|to_jalali }}
+        </div>
+      </div>
+      {% endif %} 
       {% endfor %}
     </div>
   </div>
 
-  <div id="services" class="section-title">
-    <h2>مزایای استفاده از سامانه سری دوزی</h2>
-    <div class="line"></div>
-  </div>
-
-  <div class="grid1" style="margin-bottom: 15px;">
-    <div class="card">
-      <p>استفاده از سامانه سری‌دوزی باعث می‌شود مدیریت سفارش‌های تولید پوشاک ساده‌تر، سریع‌تر و دقیق‌تر انجام شود. با کمک این سامانه، تمامی مراحل از ثبت سفارش و ارسال اطلاعات تا پیگیری وضعیت تولید و تحویل نهایی در یک بستر واحد قابل مشاهده است. این شفافیت به کاهش خطاهای انسانی، جلوگیری از دوباره‌کاری و بهبود ارتباط بین مشتری و تولیدکننده کمک می‌کند. همچنین مدیران کارگاه می‌توانند روند تولید را بهتر کنترل کرده و برنامه‌ریزی دقیق‌تری برای سفارش‌ها داشته باشند. نتیجه این فرآیند، افزایش بهره‌وری، صرفه‌جویی در زمان و ارائه خدمات حرفه‌ای‌تر به مشتریان خواهد بود.</p>  
-    </div>
-  </div>
-
-  <div class="panel" style="margin-top:18px; padding:18px;">
-    <div class="row wrap">
-      <div>
-        <h2 style="margin:0 0 6px">می‌خوای همین الان سفارش ثبت کنی؟</h2>
-        <div class="muted">داخل پنل، سفارش‌ها و پیام‌ها و فایل‌ها یکجا مدیریت می‌شن.</div>
-      </div>
-      <div class="row wrap">
-        {% if user.is_authenticated %}
-          <a class="btn" href="/orders/">ورود به سفارش‌ها</a>
-        {% else %}
-          <a class="btn" href="/accounts/register/">شروع همکاری</a>
-          <a class="btn secondary" href="/accounts/login/">ورود</a>
-        {% endif %}
-      </div>
-    </div>
-  </div>
-
-  <div id="services" class="section-title">
+  <div class="section-title" id="services">
     <h2>درباره کارگاه سری‌دوزی</h2>
-    <div class="line"></div>
   </div>
-
   <div class="grid1">
-    <div class="card">
-      <p>کارگاه سری‌دوزی ما با بهره‌گیری از نیروی متخصص، تجهیزات به‌روز و فرآیندهای استاندارد تولید، آماده اجرای سفارش‌های عمده پوشاک در تیراژهای مختلف است. تمرکز ما بر کیفیت دوخت، تحویل به‌موقع و رضایت مشتریان است تا هر سفارش با دقت و کیفیتی یکسان تولید و عرضه شود.</p>
+    <div class="card ext-auto-58">
+      <div class="ico">
+        <i class="bi bi-house-gear"></i>
+      </div>
+      
+      <div>
+        <input type="checkbox" checked id="about-toggle" hidden />
+        <p class="ext-auto-59 text">
+          کارگاه سری‌دوزی ما با بهره‌گیری از نیروی متخصص، تجهیزات به‌روز و
+          فرآیندهای استاندارد تولید، آماده اجرای سفارش‌های عمده پوشاک در تیراژهای
+          مختلف است. تمرکز ما بر کیفیت دوخت، تحویل به‌موقع و رضایت مشتریان است تا
+          هر سفارش با دقت و کیفیتی یکسان تولید و عرضه شود.
+        </p>
+        <label for="about-toggle" class="read-more"></label>
+      </div>
+      
     </div>
   </div>
 
 </section>
+
+<div class="sparks ext-auto-60">
+  <video
+    autoplay=""
+    loop=""
+    muted=""
+    playsinline=""
+    src="/static/video/sparks.mp4"
+  ></video>
+  <div class="content">
+    <div class="ext-auto-61">
+      <h2 class="ext-auto-62">می‌خوای همین الان سفارش ثبت کنی؟</h2>
+      <div class="muted ext-auto-63">
+        داخل پنل، سفارش‌ها و پیام‌ها و فایل‌ها یکجا مدیریت می‌شن.
+      </div>
+    </div>
+    <div class="ext-auto-64">
+      <a class="btn ext-auto-65" href="/orders/create/">ثبت سفارش جدید</a>
+      <a class="btn secondary ext-auto-66" href="/contact/">تماس با ما</a>
+    </div>
+  </div>
+</div>
 {% endblock %}

@@ -1,0 +1,690 @@
+
+  .topbar{
+    position: fixed;
+  }
+  main.container,section.container {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+  main.container{
+    max-width: unset;
+    padding: 0;
+  }
+  main{
+    position: relative;
+  }
+  .hero-content{
+    height: 85vh;
+  }
+  .site-footer{
+    margin: 0;
+  }
+
+
+.ext-auto-1 {
+  width: 280px;
+}
+
+.ext-auto-2 {
+  width: 280px;
+}
+
+.ext-auto-3 {
+  width: 280px;
+}
+
+.ext-auto-4 {
+  width: 100%;
+}
+
+.ext-auto-5 {
+  width: 280px;
+  margin-left: 5px;
+}
+
+.ext-auto-6 {
+  width: 280px;
+}
+
+.ext-auto-7 {
+  font-size: 50px;
+  margin: 15px 0;
+  text-align: center;
+}
+
+.ext-auto-8 {
+  font-size: 20px;
+  margin: 0 auto;
+  text-align: center;
+  width: 80%;
+}
+
+.ext-auto-9 {
+  display: flex;
+  width: 100%;
+  margin-top: 70px;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.ext-auto-10 {
+  width: 70%;
+  margin-left: 10px;
+}
+
+.ext-auto-11 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.ext-auto-12 {
+  width: 50%;
+  margin-left: 10px;
+  overflow: hidden;
+}
+
+.ext-auto-13 {
+  width: 50%;
+  margin-right: 10px;
+  overflow: hidden;
+}
+
+.ext-auto-14 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ext-auto-15 {
+  width: 50%;
+  margin-left: 10px;
+  overflow: hidden;
+}
+
+.ext-auto-16 {
+  width: 50%;
+  margin-right: 10px;
+  overflow: hidden;
+}
+
+.ext-auto-17 {
+  font-size: 50px;
+  margin: 25px 0 0;
+  padding: 0;
+}
+
+.ext-auto-17.mobile{
+    display: none;
+}
+
+.ext-auto-18 {
+  background:linear-gradient(#000007dc, #000007dc),url('/static/img/Last-Order.jpg') center;
+  background-size: cover;
+  width: 30%;
+  margin-right: 10px;
+  border-radius: var(--radius);
+  border:1px solid var(--stroke);
+  padding: 20px 10px 10px 10px;
+}
+
+.ext-auto-19 {
+  border-bottom: 2px solid var(--stroke);
+  padding: 0 10px 5px;
+}
+
+.ext-auto-20 {
+  border-bottom: 2px solid var(--accent);
+  padding: 0 10px;
+}
+
+.ext-auto-21 {
+  border-bottom: 2px solid var(--stroke);
+  padding: 10px;
+}
+
+.ext-auto-22 {
+  color: var(--ok);
+  margin-left: 5px;
+}
+
+.ext-auto-23 {
+  border-bottom: 2px solid var(--stroke);
+  padding: 10px;
+}
+
+.ext-auto-24 {
+  color: var(--ok);
+  margin-left: 5px;
+}
+
+.ext-auto-25 {
+  border-bottom: 2px solid var(--stroke);
+  padding: 10px;
+}
+
+.ext-auto-26 {
+  color: var(--accent);
+  margin-left: 5px;
+}
+
+.ext-auto-27 {
+  padding: 10px 10px 0 10px;
+}
+
+.ext-auto-28 {
+  color: var(--muted);
+  margin-left: 5px;
+}
+
+.ext-auto-29 {
+  display: flex;
+  align-items: center;
+  flex-direction: row-reverse;
+  width: calc(100%);
+  margin: 0 auto;
+}
+
+.ext-auto-30 {
+  width: 14.5%;
+}
+
+.ext-auto-31 {
+  text-align: center;
+}
+
+.ext-auto-32 {
+  text-align: center;
+}
+
+.ext-auto-33 {
+  width: 19.5%;
+}
+
+.ext-auto-34 {
+  text-align: center;
+}
+
+.ext-auto-35 {
+  text-align: center;
+}
+
+.ext-auto-36 {
+  width: 15.3%;
+}
+
+.ext-auto-37 {
+  text-align: center;
+}
+
+.ext-auto-38 {
+  text-align: center;
+}
+
+.ext-auto-39 {
+  width: 19%;
+}
+
+.ext-auto-40 {
+  text-align: center;
+}
+
+.ext-auto-41 {
+  text-align: center;
+}
+
+.ext-auto-42 {
+  width: 16%;
+  margin-right: 2%;
+}
+
+.ext-auto-43 {
+  text-align: center;
+}
+
+.ext-auto-44 {
+  text-align: center;
+}
+
+.ext-auto-45 {
+  width: 14%;
+}
+
+.ext-auto-46 {
+  text-align: center;
+}
+
+.ext-auto-47 {
+  text-align: center;
+}
+
+.ext-auto-48 {
+  margin-bottom: 25px;
+}
+
+.ext-auto-49 {
+  font-size: 50px;
+  margin: 15px 0;
+  text-align: center;
+}
+
+.ext-auto-50 {
+  font-size: 20px;
+  margin: 0 auto;
+  text-align: center;
+  width: 80%;
+}
+
+.ext-auto-51 {
+  text-align: center;
+}
+
+.ext-auto-52 {
+  justify-content:space-between;
+  gap:10px;
+}
+
+.ext-auto-53 {
+  margin:10px 0 6px;
+}
+
+.ext-auto-54 {
+  margin-top:10px;
+}
+
+.ext-auto-55 {
+  justify-content:space-between;
+  gap:10px;
+}
+
+.ext-auto-56 {
+  margin:10px 0 6px;
+}
+
+.ext-auto-57 {
+  margin-top:10px;
+}
+
+.ext-auto-58 {
+  display: flex;
+  align-items: flex-start;
+}
+
+.ext-auto-59 {
+  margin: 0 20px 0 0;
+  font-size: 20px;
+}
+
+.ext-auto-60 {
+  margin-top:60px;
+  padding:18px;
+}
+
+.ext-auto-61 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ext-auto-62 {
+  margin:0 0 6px;
+  font-size: 40px;
+}
+
+.ext-auto-63 {
+  font-size: 20px;
+}
+
+.ext-auto-64 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ext-auto-65 {
+  margin: 10px 5px;
+  width: 250px;
+}
+
+.ext-auto-66 {
+  margin: 10px 5px;
+  width: 250px;
+}
+
+
+@media (max-width: 1025px) {
+    section.container{
+        padding: 0;
+    }
+
+   .hero .hero-bg {
+        background: linear-gradient(#0000078a, #0000078a),url(/static/img/hero.webp);
+        background-size: cover;
+        background-position: 10% center;
+        background-repeat: no-repeat;
+    }
+
+    .hero-content{
+        width: 100% !important;
+        height: 75vh;
+    }
+
+    .hero h1{
+        font-size: 40px !important;
+        letter-spacing: -3px;
+    }
+
+    .hero p{
+        width: 100% !important;
+        font-size: 20px;
+    }
+
+    .ext-auto-5{
+        margin-bottom: 15px;
+    }
+
+    .ext-auto-4 a{
+        font-size: 18px;
+    }
+
+    .ext-auto-7{
+        font-size: 30px;
+    }
+
+    .ext-auto-8{
+        font-size: 16px;
+    }
+    .ext-auto-8 br{
+        display: none;
+    }
+
+    .text {
+    max-height: 400px;
+    overflow: hidden;
+    transition: 0.4s ease;
+    }
+
+    #toggle:checked ~ .text {
+    max-height: 52px;
+    }
+
+    /* دکمه */
+    .read-more {
+    display: block;
+    width: 130px;
+    margin: 15px auto 0;
+    text-align: center;
+    padding: 8px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    user-select: none;
+    text-decoration: underline dashed;
+    text-underline-offset: 6px;
+    }
+
+    /* تغییر متن دکمه بعد از کلیک */
+    #toggle ~ .read-more::after {
+    content: "بستن";
+    }
+
+    #toggle:checked ~ .read-more::after {
+    content: "مشاهده بیشتر";
+    }
+
+    .ext-auto-9{
+        display: block;
+        margin-top: 40px;
+    }
+
+    .ext-auto-10{
+        margin-right: 10px;
+        width: unset;
+    }
+
+    .feature > div > p {
+        font-size: 14px;
+    }
+
+    .ext-auto-18{
+        margin-left: 10px;
+        width: unset;
+        margin-top: 20px;
+    }
+
+    .ext-auto-17{
+        display: none;
+    }
+
+    .ext-auto-17.mobile{
+        display: block;
+    }
+
+    #service-toggle:checked ~ .text {
+    max-height: 52px;
+    }
+
+    /* تغییر متن دکمه بعد از کلیک */
+    #service-toggle ~ .read-more::after {
+    content: "بستن";
+    }
+
+    #service-toggle:checked ~ .read-more::after {
+    content: "مشاهده بیشتر";
+    }
+
+    /* مراحل ثبت سفارش */
+
+    .order-process-section {
+        background: linear-gradient(180deg, rgba(18,28,43,.72), rgba(16,24,38,.72));
+        padding: 48px 24px;
+        direction: rtl;
+        text-align: right;
+        margin: 20px auto 0;
+        box-sizing: border-box;
+    }
+
+  .order-process-section *,
+  .order-process-section *::before,
+  .order-process-section *::after {
+    box-sizing: border-box;
+  }
+
+  /* Header */
+  .order-process-header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .order-process-title {
+    color: #ffffff;
+    font-size: 1.6rem;
+    font-weight: 800;
+    margin: 0 0 10px 0;
+    line-height: 1.5;
+  }
+
+  .order-process-title .highlight {
+    color: var(--accent);
+  }
+
+  .order-process-subtitle {
+    color: #9aa0ab;
+    font-size: 0.9rem;
+    margin: 0;
+    line-height: 1.7;
+  }
+
+  /* Steps wrapper */
+  .order-steps-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  /* Individual step row */
+  .order-step {
+    display: flex;
+    gap: 14px;
+  }
+
+  /* Number + vertical line column */
+  .step-number-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+    width: 44px;
+  }
+
+  .step-number {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background-color: var(--panel);
+    border: 2px solid var(--accent);
+    color: var(--accent);
+    font-size: 1rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    z-index: 1;
+  }
+
+  .step-line {
+    width: 2px;
+    flex: 1;
+    min-height: 24px;
+    background: linear-gradient(to bottom, #f5a62360, #f5a62315);
+    margin: 4px 0;
+  }
+
+  /* Step card */
+  .step-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    background-color: var(--panel);
+    border: 1px solid #f5a62350;
+    border-radius: 14px;
+    padding: 16px 18px;
+    flex: 1;
+    margin-bottom: 16px;
+    transition: border-color 0.2s ease;
+    overflow: hidden;
+  }
+
+  .last-step .step-card {
+    margin-bottom: 0;
+  }
+
+  /* Icon */
+  .step-icon-wrap {
+    width: 52px;
+    height: 52px;
+    border-radius: 12px;
+    background-color: rgba(255,255,255,0.03);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 20px -20px 90px 10px #f39b3d52;
+  }
+
+  .step-icon-wrap i {
+    font-size: 1.5rem;
+    color: var(--accent);
+  }
+
+  /* Text content */
+  .step-content {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding-top: 2px;
+  }
+
+  .step-title {
+    color: #ffffff;
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin: 0;
+    line-height: 1.4;
+  }
+
+  .step-desc {
+    color: #8a909d;
+    font-size: 0.85rem;
+    margin: 0;
+    line-height: 1.7;
+  }
+
+  /* پایان مراحل ثبت سفارش */
+
+    .ext-auto-49{
+        font-size: 27px;
+    }
+
+    #benefits-toggle:checked ~ .text {
+    max-height: 52px;
+    }
+
+    /* تغییر متن دکمه بعد از کلیک */
+    #benefits-toggle ~ .read-more::after {
+    content: "بستن";
+    }
+
+    #benefits-toggle:checked ~ .read-more::after {
+    content: "مشاهده بیشتر";
+    }
+
+    /* هاور = توقف (اختیاری، UX بهتر) */
+    .orders-marquee {
+        -webkit-user-select: none; /* Safari */
+        -ms-user-select: none;     /* IE/Edge قدیمی */
+        user-select: none;         /* استاندارد */
+    }
+
+    .orders-marquee:hover .marquee-track{
+    animation-play-state: unset;
+    }
+
+    .orders-marquee:active .marquee-track{
+    animation-play-state: paused;
+    }
+
+    .ext-auto-58{
+        margin: 0 10px;
+    }
+
+    .ext-auto-59{
+        font-size: 16px;
+    }
+
+    #about-toggle:checked ~ .text {
+    max-height: 52px;
+    }
+
+    /* تغییر متن دکمه بعد از کلیک */
+    #about-toggle ~ .read-more::after {
+    content: "بستن";
+    }
+
+    #about-toggle:checked ~ .read-more::after {
+    content: "مشاهده بیشتر";
+    }
+
+    .ext-auto-62{
+        font-size: 25px;
+    }
+
+    .ext-auto-63{
+        font-size: 18px;
+    }
+
+    .ext-auto-64 a{
+        font-size: 16px;
+    }
+}
