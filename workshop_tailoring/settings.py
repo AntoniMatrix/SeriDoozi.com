@@ -276,6 +276,8 @@ CONTENT_SECURITY_POLICY = {
             "blob:",
             "data:",
             "https://cdn.jsdelivr.net",
+            "https://aparat.com",
+            "https://*.aparat.com",
         ),
 
         "font-src": ("'self'", "data:", "https://cdn.jsdelivr.net"),
