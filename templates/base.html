@@ -194,7 +194,7 @@
 
       <div class="footer-cols">
         <div class="footer-col">
-          <h4>دسترسی سریع</h4>
+          <p>دسترسی سریع</p>
           <ul>
             <li><a href="/"><i class="bi bi-house-door"></i> خانه</a></li>
 
@@ -214,7 +214,7 @@
         </div>
         {% if request.user.is_superuser or request.user.groups.exists or request.user.is_staff %}
           <div class="footer-col">
-            <h4>کارگاه</h4>
+            <p>کارگاه</p>
             <ul>
               <li><a href="#services"><i class="bi bi-gear"></i> خدمات</a></li>
               <li><a href="/panel/"><i class="bi bi-speedometer2"></i> پنل مدیریت</a></li>
@@ -227,7 +227,7 @@
         {% endif %}
 
         <div class="footer-col">
-          <h4>اطلاعات تماس</h4>
+          <p>اطلاعات تماس</p>
           <ul class="contact">
             <li class="en-font"><i class="bi bi-geo-alt"></i>
               {% if BUSINESS.address.addressRegion %} {{ BUSINESS.address.addressRegion }}{% endif %}
@@ -247,10 +247,10 @@
         </div>
         {% if not request.user.is_staff %}
         <div class="footer-col">
-          <h4>مجوز‌ها</h4>
+          <p>مجوز‌ها</p>
             <ul class="cert" style="display:flex; align-items: center; justify-content: space-between; height: 276px;flex-direction: column;">
               <li>
-                  <a referrerpolicy='origin' target='_blank' href='https://trustseal.enamad.ir/?id=723532&Code=AaZoRNgQmEYfn5l7NwiXysWOXROoewWT'><img loading="lazy" referrerpolicy='origin' src='https://trustseal.enamad.ir/logo.aspx?id=723532&Code=AaZoRNgQmEYfn5l7NwiXysWOXROoewWT' alt='' style='cursor:pointer' code='AaZoRNgQmEYfn5l7NwiXysWOXROoewWT'></a>
+                  <a referrerpolicy='origin' target='_blank' href='https://trustseal.enamad.ir/?id=723532&Code=AaZoRNgQmEYfn5l7NwiXysWOXROoewWT'><img loading="lazy" referrerpolicy='origin' src='https://trustseal.enamad.ir/logo.aspx?id=723532&Code=AaZoRNgQmEYfn5l7NwiXysWOXROoewWT' alt='enamad' style='cursor:pointer' code='AaZoRNgQmEYfn5l7NwiXysWOXROoewWT'></a>
               </li>
               <li>
                 <style>#zarinpal{margin:auto; width: 80px;} #zarinpal img {width: 80px;}</style>
@@ -274,29 +274,6 @@
     </div>
   </div>
 </footer>
-
-<!--
-   <div class="footer-bottom" style="position: sticky; bottom: 0px; background: linear-gradient(135deg, var(--accent), var(--accent-2)); right: 0px; left: 0px; padding: 10px 10px; border: #000 solid 2px; align-items: center; display: flex; justify-content: space-between; line-height: 1;">
-    
-    <div class="mobile" style="display: flex; justify-content: space-between; align-items: center; width: 100%; color: #000; font-size: 16px;">
-      <b class="en-font mobile">طراحی سایت با قیمت مناسب: </b>
-      <a href="tel:09912805945" class="mobile en-font"
-        style="text-decoration: none; color: #000; font-family: IYM !important; font-weight: 700; margin-left: 3px;">09912805945</a>
-    </div>
-
-    <div class="muted small en-font PC" style="font-size: 16px; color: #000;">
-      <b class="en-font PC">Powered By: Hirad Yadegari</b>
-    </div>
-    <div class="muted small PC" style="font-size: 16px; display: flex; align-items: center;">
-      
-      <a href="tel:09912805945" class="PC en-font"
-        style="text-decoration: none; color: #000; font-family: IYM !important; font-weight: 700; margin-left: 3px;">09912805945</a>
-       <strong class="PC en-font" style="color: #000;">:Phone Number</strong>
-    </div>
-
-  </div>
--->
-
 
   <!-- Schema.org -->
   <script type="application/ld+json">

@@ -609,7 +609,7 @@ input:focus, textarea:focus, select:focus{
   padding: 14px;
 }
 
-.footer-col h4{
+.footer-col p{
   margin: 0 0 10px;
   font-size: 14px;
 }
