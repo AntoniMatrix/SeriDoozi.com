@@ -3,6 +3,10 @@
 
 {% block meta_title %}ایجاد فاکتور - سفارش #{{ order.id }}  | {{ SITE_NAME }}{% endblock %}
 
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/jalalidatepicker.min.css' %}">
+{% endblock %}
+
 {% block content %}
 
 {% include "adminpanel/admin_base.html" %}
