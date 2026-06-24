@@ -21,7 +21,7 @@
   
   <link rel="stylesheet" href="{% static 'css/main.css' %}">
   <link rel="stylesheet" href="{% static 'css/responsive.css' %}" media="screen and (max-width: 1024px)">
-  <link rel="stylesheet" href="{% static 'vendor/bootstrap-icons/bootstrap-icons.css' %}">
+  <link rel="preload" href="{% static 'vendor/bootstrap-icons/bootstrap-icons.css' %}" as="style" onload="this.onload=null;this.rel='stylesheet'">
   
   {% block style %}{% endblock %}
   
