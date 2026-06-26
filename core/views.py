@@ -272,7 +272,6 @@ def robots_txt(request):
         "User-agent: *",
         "Disallow: /admin/",
         "Disallow: /panel/",
-        "Disallow: /accounts/",
         "Disallow: /orders/",
         "Disallow: /api/",
         "",
