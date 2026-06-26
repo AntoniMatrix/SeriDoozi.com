@@ -184,8 +184,8 @@
     </p>
     <label for="service-toggle" class="read-more"></label>
   </div>
-
-  <div class="card PC">
+{% if request.user_agent.is_pc %}
+  <div class="card">
     <h3>مراحلی که سفارش سری‌دوزی شما طی میکند</h3>
     <img alt="Roadmap" src="/static/img/Orders-Roadmap.webp" width="100%" height="100%" />
     <div class="ext-auto-29">
@@ -239,8 +239,10 @@
       </div>
     </div>
   </div>
+{% endif %}
 
-  <div class="order-process-section mobile">
+{% if not request.user_agent.is_pc %}
+  <div class="order-process-section">
 
   <div class="order-process-header">
     <h2 class="order-process-title">ثبت سفارش <span class="highlight">چگونه</span> انجام می‌شود؟</h2>
@@ -352,6 +354,7 @@
 
   </div>
   </div>
+{% endif %}
 
   <div class="ext-auto-48">
     <h2 class="ext-auto-49">مزایای استفاده از سامانه سری دوزی</h2>

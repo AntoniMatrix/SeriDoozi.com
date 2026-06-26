@@ -42,10 +42,11 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django.contrib.sitemaps",
-    'django.contrib.humanize',
-    'ckeditor',
-    'ckeditor_uploader',
-    'jalali_date',
+    "django.contrib.humanize",
+    "ckeditor",
+    "ckeditor_uploader",
+    "jalali_date",
+    "django_user_agents",
     # Third-party
     "csp",
 
@@ -77,6 +78,8 @@ MIDDLEWARE = [
     "csp.middleware.CSPMiddleware",
 
     'adminpanel.middleware.StaffOnlyPanelMiddleware',
+
+    "django_user_agents.middleware.UserAgentMiddleware",
 ]
 
 ROOT_URLCONF = "workshop_tailoring.urls"
