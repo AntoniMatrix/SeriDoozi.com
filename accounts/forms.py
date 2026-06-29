@@ -9,8 +9,8 @@ from .models import User
 
 class RegisterForm(UserCreationForm):
     """Register form extending UserCreationForm."""
-    email = forms.EmailField(required=False, label="ایمیل")
-    phone = forms.CharField(required=False, label="شماره موبایل")
+    email = forms.EmailField(required=True, label="ایمیل")
+    phone = forms.CharField(required=True, label="شماره موبایل")
 
     class Meta:
         model = User
