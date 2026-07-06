@@ -82,3 +82,5 @@ django-user-agents
 pyyaml
 ua-parser
 user-agents
+RegexValidator
+re
