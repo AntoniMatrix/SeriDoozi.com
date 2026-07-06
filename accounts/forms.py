@@ -11,7 +11,9 @@ class RegisterForm(UserCreationForm):
     """Register form extending UserCreationForm."""
     email = forms.EmailField(required=True, label="ایمیل")
     phone = forms.CharField(required=True, label="شماره موبایل")
+    first_name = forms.CharField(required=True , label="نام")
+    last_name = forms.CharField(required=True , label="نام خانوادگی")
 
     class Meta:
         model = User
-        fields = ("username", "email", "phone", "password1", "password2")
+        fields = ("first_name", "last_name", "username", "email",  "phone", "password1", "password2")
