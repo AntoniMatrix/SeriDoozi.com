@@ -3,9 +3,9 @@ env/
 .env/
 __pycache__/
 migrations/
-db.sqlite3
-*.env
 media/
 staticfiles/
+*.sqlite3
+*.env
 *.sql
 *.yml
