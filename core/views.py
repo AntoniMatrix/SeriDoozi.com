@@ -32,6 +32,7 @@ def home(request):
         latest = list(
             Order.objects
             .exclude(status=OrderStatus.NEW)
+            .exclude(status=OrderStatus.CANCELED)
             .prefetch_related("items")
             .annotate(total_qty=Sum("items__quantity"))
             .order_by("-created_at")[:10]
@@ -40,6 +41,7 @@ def home(request):
         latest_order = (
         Order.objects
         .exclude(status=OrderStatus.NEW)
+        .exclude(status=OrderStatus.CANCELED)
         .prefetch_related("items")
         .annotate(total_qty=Sum("items__quantity"))
         .order_by("-created_at")
