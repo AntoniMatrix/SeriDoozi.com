@@ -306,7 +306,7 @@ CONTENT_SECURITY_POLICY = {
 # SEO / Site config (editable)
 # ----------------------------
 
-SITE_NAME = "سری‌دوزی ریکوردو"
+SITE_NAME = "ریکوردو | سری دوزی عمده پوشاک"
 SITE_URL = os.environ.get("SITE_URL")
 SITE_DEFAULT_DESCRIPTION = "ثبت سفارش سری‌دوزی، دریافت پیش‌فاکتور، پیگیری تولید و مدیریت سفارش‌های کارگاه."
 SITE_DEFAULT_OG_IMAGE = os.environ.get("SITE_DEFAULT_OG_IMAGE")
